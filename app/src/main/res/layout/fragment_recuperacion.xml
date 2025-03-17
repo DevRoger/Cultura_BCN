@@ -5,9 +5,11 @@
     android:background="@drawable/background_login">
 
     <ImageView
+        android:id="@+id/imgBack"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_margin="25dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginLeft="25dp"
         android:src="@drawable/arrow_back" />
 
     <ImageView
@@ -68,7 +70,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="25dp"
         android:gravity="center"
         android:orientation="horizontal">
 
