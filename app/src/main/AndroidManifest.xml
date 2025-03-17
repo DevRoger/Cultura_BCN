@@ -12,17 +12,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CulturaBCN"
         tools:targetApi="31">
+
+        <!-- Actividad principal -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.CulturaBCN.NoActionBar">
+        </activity>
+
+        <!-- Actividad de onboarding con intent-filter, solo se muestra al inicio -->
+        <activity android:name=".onboarding.OnboardingActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

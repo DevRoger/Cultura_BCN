@@ -1,5 +1,6 @@
 package com.example.culturabcn
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import com.google.android.material.snackbar.Snackbar
@@ -12,6 +13,7 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.example.culturabcn.databinding.ActivityMainBinding
+import com.example.culturabcn.onboarding.OnboardingActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,23 +23,44 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        //___________________________________________________________________________________________
+        // Esto es el salto del opnboarding en caso de que el usuario ya lo haya visto
+        /*
+        val sharedPref = getSharedPreferences("MyPrefs", MODE_PRIVATE)
+        val onboardingCompleted = sharedPref.getBoolean("onboardingCompleted", false)
+
+        if (onboardingCompleted) {
+            // Si ya se completó el onboarding, ir directamente a la MainActivity
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        } else {
+            // Si no se completó el onboarding, mostrar la actividad de onboarding
+            val intent = Intent(this, OnboardingActivity::class.java)
+            startActivity(intent)
+            finish()
+        }*/
+        //___________________________________________________________________________________________
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setSupportActionBar(binding.appBarMain.toolbar)
 
-        binding.appBarMain.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).setAnchorView(R.id.fab).show()
-        }
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_content_main)
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_inicio, R.id.nav_perfil, R.id.nav_mensajes, R.id.nav_configuracion, R.id.nav_informacion, R.id.nav_contacto
+                R.id.nav_inicio,
+                R.id.nav_perfil,
+                R.id.nav_mensajes,
+                R.id.nav_configuracion,
+                R.id.nav_informacion,
+                R.id.nav_contacto
                  ), drawerLayout
                                                  )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -45,7 +68,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
+        // Infla el menú (opciones en la barra de acción)
         menuInflater.inflate(R.menu.main, menu)
         return true
     }
