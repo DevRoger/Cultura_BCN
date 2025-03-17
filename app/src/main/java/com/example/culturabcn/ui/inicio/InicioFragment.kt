@@ -1,4 +1,4 @@
-package com.example.culturabcn.ui.slideshow
+package com.example.culturabcn.ui.inicio
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.culturabcn.databinding.FragmentSlideshowBinding
+import com.example.culturabcn.databinding.FragmentInicioBinding
 
-class SlideshowFragment : Fragment() {
+class InicioFragment : Fragment() {
 
-    private var _binding: FragmentSlideshowBinding? = null
+    private var _binding: FragmentInicioBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -20,13 +20,13 @@ class SlideshowFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
                              ): View {
-        val slideshowViewModel = ViewModelProvider(this).get(SlideshowViewModel::class.java)
+        val inicioViewModel = ViewModelProvider(this).get(InicioViewModel::class.java)
 
-        _binding = FragmentSlideshowBinding.inflate(inflater, container, false)
+        _binding = FragmentInicioBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textSlideshow
-        slideshowViewModel.text.observe(viewLifecycleOwner) {
+        val textView: TextView = binding.textHome
+        inicioViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
         return root
