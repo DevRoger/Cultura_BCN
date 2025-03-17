@@ -3,8 +3,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import androidx.fragment.app.Fragment
-import com.example.culturabcn.MainActivity
 import com.example.culturabcn.R
+import com.example.culturabcn.login.LoginActivity
+import com.example.culturabcn.login.LoginAdapter
 
 class OnboardingFragment3 : Fragment(R.layout.fragment_onboarding_3) {
 
@@ -23,7 +24,7 @@ class OnboardingFragment3 : Fragment(R.layout.fragment_onboarding_3) {
             editor.apply()*/
 
             // Redirigir al usuario a la MainActivity
-            val intent = Intent(requireActivity(), MainActivity::class.java)
+            val intent = Intent(requireActivity(), LoginActivity::class.java)
             startActivity(intent)
 
             requireActivity().finish()  // Termina la actividad de onboarding para que no pueda volver

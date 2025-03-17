@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.example.culturabcn.MainActivity
 import com.example.culturabcn.R
+import com.example.culturabcn.login.LoginActivity
 
 class OnboardingFragment2 : Fragment(R.layout.fragment_onboarding_2) {
     // Aquí puedes agregar la lógica específica para esta pantalla de onboarding
@@ -22,7 +23,7 @@ class OnboardingFragment2 : Fragment(R.layout.fragment_onboarding_2) {
 
         btnSaltarF2.setOnClickListener {
             // Redirigir al usuario a la MainActivity
-            val intent = Intent(requireActivity(), MainActivity::class.java)
+            val intent = Intent(requireActivity(), LoginActivity::class.java)
             startActivity(intent)
 
             requireActivity().finish()  // Termina la actividad de onboarding para que no pueda volver
