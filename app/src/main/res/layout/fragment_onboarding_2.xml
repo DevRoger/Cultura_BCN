@@ -3,12 +3,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btnContinuarF2"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Continuar 2" />
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btnSaltar2"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:text="Saltar 2" />
+        <Space
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/btnContinuarF2"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:text="Continuar 2" />
+    </LinearLayout>
 
 
 </FrameLayout>

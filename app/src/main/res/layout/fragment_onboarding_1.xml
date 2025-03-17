@@ -1,15 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btnContinuarF1"
-        android:text="Continuar 1"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_gravity="center"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center">
 
+        <Button
+            android:id="@+id/btnSaltar1"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:text="Saltar 1" />
+        <Space
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/btnContinuarF1"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:text="Continuar 1" />
+    </LinearLayout>
 
 </FrameLayout>
