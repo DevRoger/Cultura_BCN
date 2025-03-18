@@ -18,12 +18,12 @@ class PreLoginFragment: Fragment(R.layout.fragment_prelogin) {
 
         btnLogin.setOnClickListener {
             val viewPager2 = requireActivity().findViewById<ViewPager2>(R.id.viewPager)  // Obtener el ViewPager2 de la actividad
-            viewPager2.currentItem = 1
+            viewPager2.currentItem = 2
         }
 
         btnSignin.setOnClickListener {
             val viewPager2 = requireActivity().findViewById<ViewPager2>(R.id.viewPager)  // Obtener el ViewPager2 de la actividad
-            viewPager2.currentItem = 2
+            viewPager2.currentItem = 1
         }
     }
 }

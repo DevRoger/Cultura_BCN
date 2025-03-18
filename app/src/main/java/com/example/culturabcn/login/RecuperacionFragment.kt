@@ -15,7 +15,7 @@ class RecuperacionFragment: Fragment(R.layout.fragment_recuperacion) {
 
         imgBack.setOnClickListener {
             val viewPager2 = requireActivity().findViewById<ViewPager2>(R.id.viewPager)  // Obtener el ViewPager2 de la actividad
-            viewPager2.currentItem = 1
+            viewPager2.currentItem = 2
         }
     }
 }

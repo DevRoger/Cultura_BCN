@@ -17,7 +17,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.CulturaBCN" />
+            android:theme="@style/Theme.CulturaBCN.NoActionBar" />
 
         <!-- Actividad de onboarding con intent-filter, solo se muestra al inicio -->
         <activity

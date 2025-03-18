@@ -13,8 +13,8 @@ class LoginAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fr
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> PreLoginFragment() // Primer fragmento
-            1 -> LoginFragment() // Segundo fragmento
-            2 -> RegistroFragment()
+            1 -> RegistroFragment()// Segundo fragmento
+            2 -> LoginFragment()
             else -> RecuperacionFragment() // Tercer fragmento
         }
     }
