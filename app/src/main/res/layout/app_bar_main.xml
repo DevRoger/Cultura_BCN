@@ -18,17 +18,18 @@
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:background="@drawable/background_toolbar"
+            android:padding="10dp"
             app:popupTheme="@style/Theme.CulturaBCN.PopupOverlay">
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_height="match_parent">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginRight="34dp"
                     android:text="CULTURA"
                     android:textColor="@color/white"
                     android:textSize="32dp"
