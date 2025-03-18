@@ -13,4 +13,4 @@ class Gestor(
     telefono: Int,
     chat: MutableList<Chat>,
     foto: Int
-            ) : Usuario(idUsuario, nombre, apellidos, correo, contrasena, fechaNacimiento, edad, telefono, chat, foto, idRol = 1)
+            ) : Usuario(idUsuario, nombre, apellidos, correo, contrasena, fechaNacimiento, edad, telefono, chat, foto, idRol = 1, eventos = mutableListOf())

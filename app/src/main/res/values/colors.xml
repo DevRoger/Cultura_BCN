@@ -11,4 +11,5 @@
     <color name="rojo_oscuro">#660217</color>
     <color name="onboarding_claro">#F7D9E0</color>
     <color name="onboarding_oscuro">#F0B4C0</color>
+    <color name="item_evento_background">#F2F2F2</color>
 </resources>

@@ -1,7 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.cardview.widget.CardView
+    android:id="@+id/cardViewEvento"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardElevation="4dp">
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginBottom="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingHorizontal="10dp"
+                android:paddingTop="10dp">
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/ic_user" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/nombreEvento"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nombre evento" />
+
+                    <TextView
+                        android:id="@+id/precioEvento"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Precio: Gratuit" />
+
+                    <TextView
+                        android:id="@+id/fechaEvento"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Data: --------" />
+
+                    <TextView
+                        android:id="@+id/horaEvento"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hora: -------" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center"
+                android:src="@drawable/arrow_back_black" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/itemDesplegable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/item_evento_background"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility=""> <!-- CAMBIAR VISIBILIDAD -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:gravity="left"
+
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/descripcionEvento"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Descripció: afdaisdasdasodmadmaafdaisdasdasodmadmaafdaisdasdasodmadmaafdaisdasdasodmadma" />
+
+                <TextView
+                    android:id="@+id/aforoEvento"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Aforament: 50 persones" />
+
+                <TextView
+                    android:id="@+id/edadMinima"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Edat mínima: 14 anys" />
+
+                <TextView
+                    android:id="@+id/lugarEvento"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Lloc: Centre de la cultura - Aula 2.4" />
+            </LinearLayout>
+
+            <!-- Botón de reserva -->
+            <Button
+                android:id="@+id/btnReservar"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:backgroundTint="#2196F3"
+                android:text="RESERVAR"
+                android:textColor="#FFFFFF" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

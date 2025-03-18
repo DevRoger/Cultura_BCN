@@ -14,7 +14,8 @@ abstract class Usuario(
     val telefono: Int,
     val chat: MutableList<Chat>,
     val foto: Int,
-    val idRol: Int
+    val idRol: Int,
+    val eventos: MutableList<Evento>
                       ) {
 
     // Metodo para establecer una contraseña segura
@@ -28,12 +29,12 @@ abstract class Usuario(
     }
 
     companion object {
-        fun generarHash(contraseña: String): String {
-            return BCrypt.hashpw(contraseña, BCrypt.gensalt())
+        fun generarHash(contrasena: String): String {
+            return BCrypt.hashpw(contrasena, BCrypt.gensalt())
         }
 
-        fun verificarContraseña(contraseña: String, hashAlmacenado: String): Boolean {
-            return BCrypt.checkpw(contraseña, hashAlmacenado)
+        fun verificarContraseña(contrasena: String, hashAlmacenado: String): Boolean {
+            return BCrypt.checkpw(contrasena, hashAlmacenado)
         }
     }
 }
