@@ -18,6 +18,7 @@
         android:layout_height="80dp"
         android:contentDescription="@string/nav_header_desc"
         android:padding="4dp"
+        android:clipToOutline="true"
         android:background="@drawable/circle_border"
         app:srcCompat="@drawable/ic_user"/>
 

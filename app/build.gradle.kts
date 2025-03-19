@@ -40,6 +40,7 @@ android {
 
 dependencies {
 
+    implementation (libs.androidx.transition)
     implementation(libs.jbcrypt)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

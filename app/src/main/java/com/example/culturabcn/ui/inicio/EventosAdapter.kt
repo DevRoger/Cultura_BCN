@@ -1,10 +1,13 @@
 package com.example.culturabcn.ui.inicio
 
 import android.annotation.SuppressLint
+import android.graphics.Outline
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewOutlineProvider
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
@@ -13,21 +16,25 @@ import com.example.culturabcn.R
 import com.example.culturabcn.clases.Evento
 import java.text.SimpleDateFormat
 
-class EventosAdapter(private val eventos: List<Evento>) : RecyclerView.Adapter<EventosAdapter.EventoViewHolder>() {
+class EventosAdapter(private val eventos: List<Evento>) :
+    RecyclerView.Adapter<EventosAdapter.EventoViewHolder>() {
 
     // Variable para almacenar el índice del item desplegado
     private var lastExpandedPosition = -1
 
     // Metodo que infla el layout y lo pasa al ViewHolder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventoViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_evento, parent, false) // Reemplaza item_evento con el nombre de tu layout
+        val view = LayoutInflater.from(parent.context).inflate(
+            R.layout.item_evento, parent, false
+                                                              ) // Reemplaza item_evento con el nombre de tu layout
         return EventoViewHolder(view)
     }
 
     // Metodo que vincula los datos a las vistas del layout
-    @SuppressLint("SimpleDateFormat")
-    override fun onBindViewHolder(holder: EventoViewHolder, @SuppressLint("RecyclerView") position: Int) {
+    @SuppressLint("SimpleDateFormat", "SetTextI18n")
+    override fun onBindViewHolder(
+        holder: EventoViewHolder, @SuppressLint("RecyclerView") position: Int
+                                 ) {
         val evento = eventos[position]
 
         // Formatear la fecha y la hora para que se vea correctamente
@@ -35,13 +42,14 @@ class EventosAdapter(private val eventos: List<Evento>) : RecyclerView.Adapter<E
         val horaFormat = SimpleDateFormat("HH:mm")
 
         holder.nombreEvento.text = evento.nombre
-        holder.precioEvento.text = "Precio: ${evento.precio}€"
-        holder.fechaEvento.text = "Fecha: ${fechaFormat.format(evento.fecha)}"
-        holder.horaEvento.text = "Hora: ${horaFormat.format(evento.hora_inicio)} - ${horaFormat.format(evento.hora_fin)}"
-        holder.descripcionEvento.text = "Descripción: ${evento.descripcion}"
-        holder.aforoEvento.text = "Aforo: ${evento.aforo} personas"
-        holder.edadMinima.text = "Edad mínima: ${evento.edad_minima} años"
-        holder.lugarEvento.text = "Lugar: ${evento.lugar}"
+        holder.precioEvento.text = "${evento.precio}€"
+        holder.fechaEvento.text = fechaFormat.format(evento.fecha)
+        holder.horaEvento.text =
+            "${horaFormat.format(evento.hora_inicio)} - ${horaFormat.format(evento.hora_fin)}"
+        holder.descripcionEvento.text = evento.descripcion
+        holder.aforoEvento.text = " ${evento.aforo} persones"
+        holder.edadMinima.text = "${evento.edad_minima} anys"
+        holder.lugarEvento.text = evento.lugar
 
         // Inicialmente, ocultar el desplegable si no es el último item expandido
         holder.itemDesplegable.visibility = if (position == lastExpandedPosition) {
@@ -70,6 +78,21 @@ class EventosAdapter(private val eventos: List<Evento>) : RecyclerView.Adapter<E
                 lastExpandedPosition = position
             }
         }
+
+        holder.imgLogo.apply {
+            outlineProvider = object : ViewOutlineProvider() {
+                override fun getOutline(view: View, outline: Outline) {
+                    outline.setRoundRect(
+                        0,
+                        0,
+                        view.width,
+                        view.height,
+                        12f * resources.displayMetrics.density
+                                        )
+                }
+            }
+            clipToOutline = true
+        }
     }
 
     override fun getItemCount(): Int {
@@ -78,6 +101,7 @@ class EventosAdapter(private val eventos: List<Evento>) : RecyclerView.Adapter<E
 
     // ViewHolder que hace referencia a las vistas dentro del layout
     class EventoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val imgLogo: ImageView = view.findViewById<ImageView>(R.id.imgLogo)
         val cardView: CardView = view.findViewById(R.id.cardViewEvento)
         val nombreEvento: TextView = view.findViewById(R.id.nombreEvento)
         val precioEvento: TextView = view.findViewById(R.id.precioEvento)

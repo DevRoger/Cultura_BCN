@@ -1,137 +1,259 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    android:id="@+id/cardViewEvento"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    app:cardElevation="4dp">
+    android:background="@drawable/border_card">
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewEvento"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="vertical" >
+        android:layout_margin="2dp"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="4dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginBottom="8dp">
+            android:layout_height="wrap_content"
+            android:background="@color/item_evento_background"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingHorizontal="10dp"
-                android:paddingTop="10dp">
-
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_margin="10dp"
-                    android:src="@drawable/ic_user" />
+                android:layout_height="match_parent"
+                android:background="@drawable/bottom_rounded"
+                android:orientation="vertical"
+                android:paddingBottom="2dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_gravity="center"
-                    android:padding="10dp">
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="10dp"
+                    android:paddingTop="10dp">
 
-                    <TextView
-                        android:id="@+id/nombreEvento"
-                        android:layout_width="wrap_content"
+                    <ImageView
+                        android:id="@+id/imgLogo"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:padding="2dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/rounded_image_item_event"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/side_nav_bar" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Nombre evento" />
+                        android:layout_gravity="center"
+                        android:orientation="vertical"
+                        android:padding="10dp">
 
-                    <TextView
-                        android:id="@+id/precioEvento"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Precio: Gratuit" />
+                        <TextView
+                            android:id="@+id/nombreEvento"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            android:text="null"
 
-                    <TextView
-                        android:id="@+id/fechaEvento"
+                            android:textColor="@color/rojo_claro"
+                            android:textSize="22dp"
+                            android:textStyle="bold" />
 
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Data: --------" />
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
 
-                    <TextView
-                        android:id="@+id/horaEvento"
+                            android:orientation="horizontal">
 
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Hora: -------" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Preu: "
+                                android:textColor="@color/rojo_claro"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/precioEvento"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="null" />
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Data: "
+                                android:textColor="@color/rojo_claro"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/fechaEvento"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="null" />
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Hora: "
+                                android:textColor="@color/rojo_claro"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/horaEvento"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="null" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
                 </LinearLayout>
 
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="4dp"
+                    android:src="@drawable/flecha_abajo_roja" />
+
             </LinearLayout>
 
-            <ImageView
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_gravity="center"
-                android:src="@drawable/arrow_back_black" />
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/itemDesplegable"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/item_evento_background"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:visibility=""> <!-- CAMBIAR VISIBILIDAD -->
 
             <LinearLayout
+                android:id="@+id/itemDesplegable"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:gravity="left"
+                android:background="@color/item_evento_background"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone"> <!-- CAMBIAR VISIBILIDAD -->
 
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/descripcionEvento"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Descripció: afdaisdasdasodmadmaafdaisdasdasodmadmaafdaisdasdasodmadmaafdaisdasdasodmadma" />
+                    android:layout_margin="10dp"
+                    android:gravity="left"
+                    android:orientation="vertical"
+                    android:paddingLeft="6dp">
 
-                <TextView
-                    android:id="@+id/aforoEvento"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Aforament: 50 persones" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/edadMinima"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Edat mínima: 14 anys" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Descripció: "
+                            android:textColor="@color/rojo_claro"
+                            android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/lugarEvento"
-                    android:layout_width="wrap_content"
+                        <TextView
+                            android:id="@+id/descripcionEvento"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="null" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Aforament: "
+                            android:textColor="@color/rojo_claro"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/aforoEvento"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="null" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Edat mínima: "
+                            android:textColor="@color/rojo_claro"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/edadMinima"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="null" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Lloc: "
+                            android:textColor="@color/rojo_claro"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/lugarEvento"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="null" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- Botón de reserva -->
+                <Button
+                    android:id="@+id/btnReservar"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:text="Lloc: Centre de la cultura - Aula 2.4" />
+                    android:layout_marginBottom="10dp"
+                    android:backgroundTint="#2196F3"
+                    android:text="RESERVAR"
+                    android:textColor="#FFFFFF" />
+
             </LinearLayout>
-
-            <!-- Botón de reserva -->
-            <Button
-                android:id="@+id/btnReservar"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:backgroundTint="#2196F3"
-                android:text="RESERVAR"
-                android:textColor="#FFFFFF" />
 
         </LinearLayout>
 
-    </LinearLayout>
-
-</androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
+</FrameLayout>
