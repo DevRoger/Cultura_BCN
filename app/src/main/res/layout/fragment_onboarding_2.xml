@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/onboarding_oscuro">
 
     <ImageView
@@ -73,22 +74,40 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <Button
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSaltar2"
             android:layout_width="100dp"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:layout_gravity="center"
-            android:text="Saltar 2" />
+            android:background="@drawable/degradado_button"
+            android:minHeight="0dp"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:text="Saltar"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:backgroundTint="@null" />
 
         <Space
             android:layout_width="130dp"
             android:layout_height="wrap_content" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnContinuarF2"
-            android:layout_width="100dp"
-            android:layout_height="40dp"
-            android:text="Continuar 2" />
+            android:layout_width="120dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:background="@drawable/degradado_button"
+            android:minHeight="0dp"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:text="Continuar"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:backgroundTint="@null" />
     </LinearLayout>
 
 

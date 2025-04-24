@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/background_login">
 
 
@@ -44,19 +45,37 @@
             android:textSize="34dp"
             android:textStyle="bold" />
 
-        <Button
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnLogin"
             android:layout_width="250dp"
             android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:background="@drawable/degradado_button"
+            android:minHeight="0dp"
+            android:paddingTop="0dp"
             android:layout_marginTop="20dp"
-            android:text="Iniciar Sessió" />
+            android:paddingBottom="0dp"
+            android:text="Iniciar Sessió"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:backgroundTint="@null" />
 
-        <Button
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSignin"
             android:layout_width="250dp"
             android:layout_height="50dp"
-            android:layout_marginTop="10dp"
-            android:text="Registrar-se" />
+            android:layout_gravity="center"
+            android:background="@drawable/degradado_button"
+            android:minHeight="0dp"
+            android:paddingTop="0dp"
+            android:layout_marginTop="20dp"
+            android:paddingBottom="0dp"
+            android:text="Registrar-se"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:backgroundTint="@null" />
 
         <Space
             android:layout_width="match_parent"

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/onboarding_claro">
@@ -66,13 +67,21 @@
 
     </LinearLayout>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnFinalizar"
         android:layout_width="200dp"
-        android:layout_height="40dp"
+        android:layout_height="35dp"
         android:layout_gravity="bottom |center"
         android:layout_marginBottom="50dp"
-        android:text="Continuar" />
+        android:background="@drawable/degradado_button"
+        android:minHeight="0dp"
+        android:paddingTop="0dp"
+        android:paddingBottom="0dp"
+        android:text="Continuar"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:backgroundTint="@null" />
 
 
 </FrameLayout>

@@ -242,14 +242,20 @@
                 </LinearLayout>
 
                 <!-- Botón de reserva -->
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnReservar"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/degradado_button"
+                    android:minHeight="0dp"
+                    android:paddingTop="0dp"
                     android:layout_marginBottom="10dp"
-                    android:backgroundTint="#2196F3"
                     android:text="RESERVAR"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    app:backgroundTint="@null" />
+
+
 
             </LinearLayout>
 

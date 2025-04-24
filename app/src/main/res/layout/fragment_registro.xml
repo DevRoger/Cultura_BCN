@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/background_login">
 
     <ImageView
@@ -76,13 +77,21 @@
             android:layout_gravity="center"
             android:background="@color/rojo_oscuro" />
 
-        <Button
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnIniciar"
             android:layout_width="150dp"
             android:layout_height="50dp"
             android:layout_gravity="right"
+            android:background="@drawable/degradado_button"
+            android:minHeight="0dp"
+            android:paddingTop="0dp"
             android:layout_marginTop="25dp"
-            android:layout_marginRight="55dp"
-            android:text="Registrar-se" />
+            android:layout_marginRight="55dp"            android:paddingBottom="0dp"
+            android:text="Registrar-se"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:backgroundTint="@null" />
 
     </LinearLayout>
 

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Capa 1: Fondo degradado -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="45"
+                android:startColor="@color/rojo_oscuro"
+                android:endColor="@color/rojo_claro"
+                android:type="linear"
+                android:gradientRadius="50%p"/>
+
+            <corners android:radius="20dp"/>
+        </shape>
+    </item>
+</layer-list>

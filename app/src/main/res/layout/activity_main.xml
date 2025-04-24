@@ -34,12 +34,19 @@
             android:layout_gravity="bottom">
 
             <!-- Botón de Cerrar sesión -->
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_logout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/dark_button"
+                android:minHeight="0dp"
+                android:paddingTop="0dp"
+                android:layout_gravity="right |bottom"
                 android:text="Tancar sessió"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:backgroundTint="@null" />
+
         </LinearLayout>
 
     </com.google.android.material.navigation.NavigationView>
