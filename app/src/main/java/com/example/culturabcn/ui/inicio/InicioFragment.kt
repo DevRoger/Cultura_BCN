@@ -45,7 +45,7 @@ class InicioFragment : Fragment() {
                 edad = 34,
                 telefono = 123456789,
                 chat = mutableListOf(),
-                foto = 1
+                foto = null
                    ), Cliente(
                 idUsuario = 2,
                 nombre = "María",
@@ -56,7 +56,7 @@ class InicioFragment : Fragment() {
                 edad = 39,
                 telefono = 987654321,
                 chat = mutableListOf(),
-                foto = 2
+                foto = null
                              ), Cliente(
                 idUsuario = 3,
                 nombre = "Carlos",
@@ -67,7 +67,7 @@ class InicioFragment : Fragment() {
                 edad = 32,
                 telefono = 112233445,
                 chat = mutableListOf(),
-                foto = 3
+                foto = null
                                        ), Cliente(
                 idUsuario = 4,
                 nombre = "Laura",
@@ -78,7 +78,7 @@ class InicioFragment : Fragment() {
                 edad = 29,
                 telefono = 556677889,
                 chat = mutableListOf(),
-                foto = 4
+                foto = null
                                                  ), Cliente(
                 idUsuario = 5,
                 nombre = "Pedro",
@@ -89,7 +89,7 @@ class InicioFragment : Fragment() {
                 edad = 36,
                 telefono = 998877665,
                 chat = mutableListOf(),
-                foto = 5
+                foto = null
                                                            )
                                     )
         val eventos = mutableListOf(
@@ -102,6 +102,7 @@ class InicioFragment : Fragment() {
                 descripcion = "Un concierto de rock en vivo con bandas locales.",
                 lugar = "Estadio Nacional",
                 aforo = 5000,
+                enumerada = false,
                 precio = 50.0f,
                 edad_minima = 18
                   ),
@@ -114,6 +115,7 @@ class InicioFragment : Fragment() {
                 descripcion = "Una feria para mostrar proyectos científicos y tecnológicos.",
                 lugar = "Centro de Convenciones",
                 aforo = 2000,
+                enumerada = false,
                 precio = 10.0f,
                 edad_minima = 12
                   ),
@@ -126,6 +128,7 @@ class InicioFragment : Fragment() {
                 descripcion = "Exposición de pintura contemporánea con artistas locales.",
                 lugar = "Museo de Arte Moderno",
                 aforo = 300,
+                enumerada = false,
                 precio = 20.0f,
                 edad_minima = 16
                   ),
@@ -138,6 +141,7 @@ class InicioFragment : Fragment() {
                 descripcion = "Una carrera nocturna por las calles de la ciudad.",
                 lugar = "Parque Central",
                 aforo = 2000,
+                enumerada = false,
                 precio = 25.0f,
                 edad_minima = 18
                   ),
@@ -150,6 +154,7 @@ class InicioFragment : Fragment() {
                 descripcion = "Un festival con comida de todo el mundo y actividades culturales.",
                 lugar = "Plaza Mayor",
                 aforo = 10000,
+                enumerada = false,
                 precio = 15.0f,
                 edad_minima = 12
                   )

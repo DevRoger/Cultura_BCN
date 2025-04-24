@@ -40,6 +40,9 @@ android {
 
 dependencies {
 
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.logging.interceptor)
     implementation (libs.androidx.transition)
     implementation(libs.jbcrypt)
     implementation(libs.androidx.core.ktx)

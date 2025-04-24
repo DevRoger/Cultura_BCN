@@ -12,5 +12,5 @@ class Cliente(
     edad: Int,
     telefono: Int,
     chat: MutableList<Chat>,
-    foto: Int
+    foto: String?
              ) : Usuario(idUsuario, nombre, apellidos, correo, contrasena, fechaNacimiento, edad, telefono, chat, foto, idRol = 2, eventos = mutableListOf())

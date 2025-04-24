@@ -1,0 +1,18 @@
+package com.example.culturabcn.API
+
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+
+object RetrofitClient {
+    private const val BASE_URL = "http://10.0.0.213/CulturaBCN/"
+
+    val apiService: ApiService by lazy {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create()) // Usar Gson para JSON
+            .build()
+            .create(ApiService::class.java)
+    }
+}

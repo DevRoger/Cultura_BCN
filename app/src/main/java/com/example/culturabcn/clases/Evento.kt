@@ -12,6 +12,7 @@ data class Evento(
     val descripcion: String,
     val lugar: String,
     val aforo: Int,
+    val enumerada: Boolean,
     val precio: Float,
     val edad_minima: Int
                  )

@@ -4,7 +4,7 @@ import org.mindrot.jbcrypt.BCrypt
 import java.util.Date
 
 abstract class Usuario(
-    val idUsuario: Int,
+    val id: Int,
     val nombre: String,
     val apellidos: String,
     val correo: String,
@@ -13,7 +13,7 @@ abstract class Usuario(
     val edad: Int,
     val telefono: Int,
     val chat: MutableList<Chat>,
-    val foto: Int,
+    val foto: String?,
     val idRol: Int,
     val eventos: MutableList<Evento>
                       ) {

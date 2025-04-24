@@ -37,6 +37,7 @@ class PerfilFragment : Fragment() {
                 descripcion = "Un concierto de rock en vivo con bandas locales.",
                 lugar = "Estadio Nacional",
                 aforo = 5000,
+                enumerada = false,
                 precio = 50.0f,
                 edad_minima = 18
                   ),
@@ -49,6 +50,7 @@ class PerfilFragment : Fragment() {
                 descripcion = "Una feria para mostrar proyectos científicos y tecnológicos.",
                 lugar = "Centro de Convenciones",
                 aforo = 2000,
+                enumerada = false,
                 precio = 10.0f,
                 edad_minima = 12
                   ),
@@ -61,6 +63,7 @@ class PerfilFragment : Fragment() {
                 descripcion = "Exposición de pintura contemporánea con artistas locales.",
                 lugar = "Museo de Arte Moderno",
                 aforo = 300,
+                enumerada = false,
                 precio = 20.0f,
                 edad_minima = 16
                   ),
@@ -73,6 +76,7 @@ class PerfilFragment : Fragment() {
                 descripcion = "Una carrera nocturna por las calles de la ciudad.",
                 lugar = "Parque Central",
                 aforo = 2000,
+                enumerada = false,
                 precio = 25.0f,
                 edad_minima = 18
                   ),
@@ -85,6 +89,7 @@ class PerfilFragment : Fragment() {
                 descripcion = "Un festival con comida de todo el mundo y actividades culturales.",
                 lugar = "Plaza Mayor",
                 aforo = 10000,
+                enumerada = false,
                 precio = 15.0f,
                 edad_minima = 12
                   )
