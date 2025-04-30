@@ -1,20 +1,21 @@
 package com.example.culturabcn.clases
 
+import com.google.gson.annotations.SerializedName
 import org.mindrot.jbcrypt.BCrypt
 import java.util.Date
 
 abstract class Usuario(
-    val id: Int,
+    @SerializedName("id_usuario") val id: Int,
     val nombre: String,
     val apellidos: String,
     val correo: String,
-    private var contrasenaHash: String,
-    val fechaNacimiento: Date,
+    @SerializedName("contrasenya_hash") private var contrasenaHash: String,
+    @SerializedName("fecha_nacimiento") val fechaNacimiento: Date,
     val edad: Int,
-    val telefono: Int,
+    val telefono: String,
     val chat: MutableList<Chat>,
-    val foto: String?,
-    val idRol: Int,
+    @SerializedName("foto_url") val foto: String?,
+    @SerializedName("id_rol") val idRol: Int,
     val eventos: MutableList<Evento>
                       ) {
 

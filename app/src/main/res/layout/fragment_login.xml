@@ -50,11 +50,12 @@
             android:layout_height="120dp" />
 
         <EditText
+            android:id="@+id/edtCorreo"
             android:layout_width="300dp"
             android:layout_height="70dp"
             android:layout_gravity="center"
             android:layout_marginBottom="25dp"
-            android:background="@color/rojo_oscuro" />
+            android:background="@drawable/rounded_edittext" />
 
         <FrameLayout
             android:layout_width="wrap_content"
@@ -62,10 +63,11 @@
             android:layout_gravity="center">
 
             <EditText
+                android:id="@+id/edtContrasenya"
                 android:layout_width="300dp"
                 android:layout_height="70dp"
                 android:layout_gravity="center"
-                android:background="@color/rojo_oscuro" />
+                android:background="@drawable/rounded_edittext" />
 
             <Button
                 android:id="@+id/btnOlvidada"
@@ -73,6 +75,8 @@
                 android:layout_height="70dp"
                 android:layout_gravity="right"
                 android:layout_marginLeft="210dp"
+                android:textStyle="bold"
+                android:textColor="@color/rojo_claro"
                 android:background="@android:color/transparent"
                 android:text="OBLIDADA" />
         </FrameLayout>

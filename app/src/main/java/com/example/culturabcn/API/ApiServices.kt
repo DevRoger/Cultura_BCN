@@ -2,6 +2,7 @@ package com.example.culturabcn.API
 
 import com.example.culturabcn.clases.Cliente
 import com.example.culturabcn.clases.Evento
+import com.example.culturabcn.clases.Gestor
 import com.example.culturabcn.clases.Usuario
 import retrofit2.Call
 import retrofit2.Response
@@ -16,6 +17,12 @@ import retrofit2.http.Query
 interface ApiService {
     @GET("api/Eventos")
     fun getEventos(): Call<List<Evento>>
+
+    @GET("api/usuarios/rol/1")
+    fun getUsuariosRol1(): Call<List<Cliente>>
+
+    @GET("api/usuarios/rol/2")
+    fun getUsuariosRol2(): Call<List<Gestor>>
 
     /*
     @GET("api/Local")

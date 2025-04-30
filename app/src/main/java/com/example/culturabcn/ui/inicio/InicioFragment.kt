@@ -36,58 +36,58 @@ class InicioFragment : Fragment() {
 
         val usuarios = mutableListOf(
             Cliente(
-                idUsuario = 1,
+                id = 1,
                 nombre = "Juan",
                 apellidos = "Pérez",
                 correo = "juan.perez@email.com",
                 contrasena = "contrasena1",
                 fechaNacimiento = Date(1990, 5, 10), // 10 de mayo de 1990
                 edad = 34,
-                telefono = 123456789,
+                telefono = "123456789",
                 chat = mutableListOf(),
                 foto = null
                    ), Cliente(
-                idUsuario = 2,
+                id = 2,
                 nombre = "María",
                 apellidos = "Gómez",
                 correo = "maria.gomez@email.com",
                 contrasena = "contrasena2",
                 fechaNacimiento = Date(1985, 8, 25), // 25 de agosto de 1985
                 edad = 39,
-                telefono = 987654321,
+                telefono = "987654321",
                 chat = mutableListOf(),
                 foto = null
                              ), Cliente(
-                idUsuario = 3,
+                id = 3,
                 nombre = "Carlos",
                 apellidos = "López",
                 correo = "carlos.lopez@email.com",
                 contrasena = "contrasena3",
                 fechaNacimiento = Date(1992, 3, 15), // 15 de marzo de 1992
                 edad = 32,
-                telefono = 112233445,
+                telefono = "112233445",
                 chat = mutableListOf(),
                 foto = null
                                        ), Cliente(
-                idUsuario = 4,
+                id = 4,
                 nombre = "Laura",
                 apellidos = "Martínez",
                 correo = "laura.martinez@email.com",
                 contrasena = "contrasena4",
                 fechaNacimiento = Date(1995, 12, 5), // 5 de diciembre de 1995
                 edad = 29,
-                telefono = 556677889,
+                telefono = "556677889",
                 chat = mutableListOf(),
                 foto = null
                                                  ), Cliente(
-                idUsuario = 5,
+                id = 5,
                 nombre = "Pedro",
                 apellidos = "Sánchez",
                 correo = "pedro.sanchez@email.com",
                 contrasena = "contrasena5",
                 fechaNacimiento = Date(1988, 6, 20), // 20 de junio de 1988
                 edad = 36,
-                telefono = 998877665,
+                telefono = "998877665",
                 chat = mutableListOf(),
                 foto = null
                                                            )

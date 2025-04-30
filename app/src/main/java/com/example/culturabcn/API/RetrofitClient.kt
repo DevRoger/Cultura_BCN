@@ -6,12 +6,16 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
-    private const val BASE_URL = "http://10.0.0.213/CulturaBCN/"
+    private const val BASE_URL = "http://10.0.3.233/CulturaBCN/"
+
+    private val gson = GsonBuilder()
+        .setDateFormat("yyyy-MM-dd")
+        .create()
 
     val apiService: ApiService by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create()) // Usar Gson para JSON
+            .addConverterFactory(GsonConverterFactory.create(gson)) // Usar Gson para JSON
             .build()
             .create(ApiService::class.java)
     }

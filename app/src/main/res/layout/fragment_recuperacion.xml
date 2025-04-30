@@ -64,7 +64,7 @@
 
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnIniciar"
+            android:id="@+id/btnRecuperar"
             android:layout_width="150dp"
             android:layout_height="50dp"
             android:layout_gravity="right"

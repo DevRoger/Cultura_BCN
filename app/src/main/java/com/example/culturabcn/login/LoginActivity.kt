@@ -1,6 +1,6 @@
 package com.example.culturabcn.login
 
-import android.content.Intent
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -9,7 +9,6 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.culturabcn.API.RetrofitClient
 import com.example.culturabcn.R
 import com.example.culturabcn.clases.Evento
-import com.example.culturabcn.clases.Usuario
 import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
@@ -17,6 +16,9 @@ import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
 
+
+
+    @SuppressLint("MissingInflatedId", "WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_principal)
@@ -31,7 +33,7 @@ class LoginActivity : AppCompatActivity() {
 
 
         // Prueba API
-        val call = RetrofitClient.apiService.getEventos()
+        /*val call = RetrofitClient.apiService.getEventos()
         call.enqueue(object : Callback<List<Evento>> {
             override fun onResponse(call: Call<List<Evento>>, response: Response<List<Evento>>) {
 
@@ -52,6 +54,10 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this@LoginActivity, "Error de conexión", Toast.LENGTH_SHORT)
                     .show()
             }
-        })
+        })*/
+
     }
+
+
+
 }
