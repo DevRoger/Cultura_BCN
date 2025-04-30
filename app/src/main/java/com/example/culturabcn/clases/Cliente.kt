@@ -8,7 +8,7 @@ class Cliente(
     apellidos: String,
     correo: String,
     contrasena: String,
-    fechaNacimiento: Date,
+    fechaNacimiento: String,
     edad: Int,
     telefono: String,
     chat: MutableList<Chat>,

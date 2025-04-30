@@ -48,13 +48,20 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 val call = RetrofitClient.apiService.getUsuariosRol1()
                 call.enqueue(object : Callback<List<Cliente>> {
                     override fun onResponse(
-                        call: Call<List<Cliente>>, response: Response<List<Cliente>>
-                                           ) {
+                        call: Call<List<Cliente>>, response: Response<List<Cliente>>) {
 
                         // Verificamos si la respuesta es exitosa
                         if (response.isSuccessful) {
                             // Accedemos al cuerpo de la respuesta
                             val clientes = response.body()
+
+                            val usuarioiValido = clientes?.find { it.correo == correo && decryptAES(it.contrasenaHash) == contrasena }
+
+                            if (usuarioiValido != null) {
+
+                            } else {
+
+                            }
 
                             if (clientes != null) {
                                 // Iteramos sobre la lista de clientes y mostramos sus datos en los logs
@@ -66,6 +73,9 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                                     Log.d("IniciarSesion", "Fecha de Nacimiento: ${cliente.fechaNacimiento}")
                                     Log.d("IniciarSesion", "Edad: ${cliente.edad}")
                                     Log.d("IniciarSesion", "Foto: ${cliente.foto}")
+
+
+
                                 }
                             } else {
                                 Log.e("IniciarSesion", "Respuesta vacía o nula")
@@ -83,7 +93,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
                             requireActivity().finish()
                         }
-
                     }
 
                     override fun onFailure(call: Call<List<Cliente>>, t: Throwable) {
