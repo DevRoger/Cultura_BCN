@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -53,9 +54,13 @@
             android:id="@+id/edtCorreo"
             android:layout_width="300dp"
             android:layout_height="70dp"
+            android:paddingStart="14dp"
             android:layout_gravity="center"
+            android:maxLines="1"
+            android:inputType="textEmailAddress"
             android:layout_marginBottom="25dp"
-            android:background="@drawable/rounded_edittext" />
+            android:background="@drawable/rounded_edittext"
+            tools:ignore="RtlSymmetry" />
 
         <FrameLayout
             android:layout_width="wrap_content"
@@ -67,8 +72,11 @@
                 android:layout_width="300dp"
                 android:layout_height="70dp"
                 android:inputType="textPassword"
+                android:maxLines="1"
+                android:paddingStart="14dp"
                 android:layout_gravity="center"
-                android:background="@drawable/rounded_edittext" />
+                android:background="@drawable/rounded_edittext"
+                tools:ignore="RtlSymmetry" />
 
             <Button
                 android:id="@+id/btnOlvidada"

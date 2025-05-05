@@ -1,7 +1,9 @@
 package com.example.culturabcn
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
@@ -10,6 +12,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.culturabcn.databinding.ActivityMainBinding
+import com.example.culturabcn.login.LoginActivity
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -62,6 +65,16 @@ class MainActivity : AppCompatActivity() {
                                                  )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        val btnLogOut = findViewById<Button>(R.id.btn_logout)
+
+        // Botón de cerrar sesión
+        btnLogOut.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+
+            this.finish()
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
