@@ -66,6 +66,7 @@
                 android:id="@+id/edtContrasenya"
                 android:layout_width="300dp"
                 android:layout_height="70dp"
+                android:inputType="textPassword"
                 android:layout_gravity="center"
                 android:background="@drawable/rounded_edittext" />
 

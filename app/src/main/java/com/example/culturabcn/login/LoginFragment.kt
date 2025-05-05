@@ -16,7 +16,7 @@ import com.example.culturabcn.API.RetrofitClient
 import com.example.culturabcn.MainActivity
 import com.example.culturabcn.R
 import com.example.culturabcn.clases.Cliente
-import com.google.gson.Gson
+import com.example.culturabcn.clases.Gestor
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -45,80 +45,81 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
             if (correo.isNotEmpty() && contrasena.isNotEmpty()) {
 
-                val call = RetrofitClient.apiService.getUsuariosRol1()
-                call.enqueue(object : Callback<List<Cliente>> {
-                    override fun onResponse(
-                        call: Call<List<Cliente>>, response: Response<List<Cliente>>) {
+                var autenticado = false
+                var respuestasRecibidas = 0
 
-                        // Verificamos si la respuesta es exitosa
+                fun manejarRespuestaFinal() {
+                    respuestasRecibidas++
+                    if (respuestasRecibidas == 2 && !autenticado) {
+                        Toast.makeText(requireContext(), "Correo y/o contraseña incorrectos.", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                // Cliente
+                RetrofitClient.apiService.getUsuariosRol1().enqueue(object : Callback<List<Cliente>> {
+                    override fun onResponse(call: Call<List<Cliente>>, response: Response<List<Cliente>>) {
                         if (response.isSuccessful) {
-                            // Accedemos al cuerpo de la respuesta
                             val clientes = response.body()
+                            val usuarioValido = clientes?.find { it.correo == correo && it.contrasenaHash == contrasena }
 
-                            val usuarioiValido = clientes?.find { it.correo == correo && decryptAES(it.contrasenaHash) == contrasena }
-
-                            if (usuarioiValido != null) {
-
+                            if (usuarioValido != null) {
+                                autenticado = true
+                                Toast.makeText(requireContext(), "Inicio de sesión con éxito", Toast.LENGTH_SHORT).show()
+                                startActivity(Intent(requireActivity(), MainActivity::class.java))
+                                requireActivity().finish()
                             } else {
-
+                                manejarRespuestaFinal()
                             }
-
-                            if (clientes != null) {
-                                // Iteramos sobre la lista de clientes y mostramos sus datos en los logs
-                                for (cliente in clientes) {
-                                    Log.d("IniciarSesion", "Cliente ID: ${cliente.id}")
-                                    Log.d("IniciarSesion", "Nombre: ${cliente.nombre} ${cliente.apellidos}")
-                                    Log.d("IniciarSesion", "Correo: ${cliente.correo}")
-                                    Log.d("IniciarSesion", "Telefono: ${cliente.telefono}")
-                                    Log.d("IniciarSesion", "Fecha de Nacimiento: ${cliente.fechaNacimiento}")
-                                    Log.d("IniciarSesion", "Edad: ${cliente.edad}")
-                                    Log.d("IniciarSesion", "Foto: ${cliente.foto}")
-
-
-
-                                }
-                            } else {
-                                Log.e("IniciarSesion", "Respuesta vacía o nula")
-                            }
-
                         } else {
-                            // Si la respuesta no fue exitosa, mostramos el error
                             Log.e("IniciarSesion", "Error en la respuesta: ${response.errorBody()?.string()}")
-                        }
-
-                        if (response.isSuccessful) {
-                            // Redirigir al usuario a la MainActivity
-                            val intent = Intent(requireActivity(), MainActivity::class.java)
-                            startActivity(intent)
-
-                            requireActivity().finish()
+                            manejarRespuestaFinal()
                         }
                     }
 
                     override fun onFailure(call: Call<List<Cliente>>, t: Throwable) {
                         Log.e("IniciarSesion", "Error de red: ${t.message}")
-                        Toast.makeText(requireContext(), "Error de conexión", Toast.LENGTH_SHORT)
-                            .show()
+                        Toast.makeText(requireContext(), "Error de conexión", Toast.LENGTH_SHORT).show()
+                        manejarRespuestaFinal()
+                    }
+                })
+
+                // Gestor
+                RetrofitClient.apiService.getUsuariosRol2().enqueue(object : Callback<List<Gestor>> {
+                    override fun onResponse(call: Call<List<Gestor>>, response: Response<List<Gestor>>) {
+                        if (response.isSuccessful) {
+                            val gestores = response.body()
+                            val usuarioValido = gestores?.find { it.correo == correo && it.contrasenaHash == contrasena }
+
+                            if (usuarioValido != null) {
+                                autenticado = true
+                                Toast.makeText(requireContext(), "Inicio de sesión con éxito", Toast.LENGTH_SHORT).show()
+                                startActivity(Intent(requireActivity(), MainActivity::class.java))
+                                requireActivity().finish()
+                            } else {
+                                manejarRespuestaFinal()
+                            }
+                        } else {
+                            Log.e("IniciarSesion", "Error en la respuesta: ${response.errorBody()?.string()}")
+                            manejarRespuestaFinal()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<List<Gestor>>, t: Throwable) {
+                        Log.e("IniciarSesion", "Error de red: ${t.message}")
+                        Toast.makeText(requireContext(), "Error de conexión", Toast.LENGTH_SHORT).show()
+                        manejarRespuestaFinal()
                     }
                 })
 
             } else {
-                // Correo y contraseña vacíos
                 Toast.makeText(requireContext(), "Correo o contraseña vacíos", Toast.LENGTH_SHORT).show()
-
             }
-
         }
 
-        /*
-        -------------------------------------------------------------------
-        AQUI FALTA LA COMPROBACIÓN DEL USUARIO Y LA CONTRASEÑA INTRODUCIDOS
-        -------------------------------------------------------------------
-         */
+
 
         val txtRegistrar = view.findViewById<TextView>(R.id.txtRegistrar)
         val btnOlvidada = view.findViewById<TextView>(R.id.btnOlvidada)
-
 
         txtRegistrar.setOnClickListener {
             val viewPager2 =

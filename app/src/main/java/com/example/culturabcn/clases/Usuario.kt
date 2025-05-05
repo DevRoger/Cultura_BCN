@@ -9,7 +9,7 @@ abstract class Usuario(
     val nombre: String,
     val apellidos: String,
     val correo: String,
-    @SerializedName("contrasenya_hash") var contrasenaHash: String,
+    @SerializedName("contrasena_hash") var contrasenaHash: String,
     @SerializedName("fecha_nacimiento") val fechaNacimiento: String,
     val edad: Int,
     val telefono: String,
