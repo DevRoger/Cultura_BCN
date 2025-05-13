@@ -2,8 +2,10 @@ package com.example.culturabcn
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
@@ -11,9 +13,16 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.culturabcn.API.RetrofitClient
+import com.example.culturabcn.clases.Cliente
+import com.example.culturabcn.clases.Gestor
 import com.example.culturabcn.databinding.ActivityMainBinding
 import com.example.culturabcn.login.LoginActivity
+import com.example.culturabcn.ui.perfil.PerfilFragment
 import com.google.android.material.navigation.NavigationView
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
@@ -42,6 +51,51 @@ class MainActivity : AppCompatActivity() {
         }*/
         //___________________________________________________________________________________________
 
+
+        // Aquí deberías agregar el fragmento al contenedor correspondiente
+        /*supportFragmentManager.beginTransaction()
+            .replace(R.id.nav_host_fragment_content_main, perfilFragment)
+            .commit()*/
+
+
+        /*if (idRol == 1) {
+            // Aquí haces la consulta con el ID
+
+            RetrofitClient.apiService.getUsuariosRol1().enqueue(object : Callback<List<Cliente>> {
+                override fun onResponse(call: Call<List<Cliente>>, response: Response<List<Cliente>>) {
+                    if (response.isSuccessful) {
+                        val clientes = response.body()
+                        val usuarioValido = clientes?.find { it.correo == correo && it.contrasenaHash == contrasena }
+
+                        if (usuarioValido != null) {
+                            autenticado = true
+                            Toast.makeText(requireContext(), "Inicio de sesión con éxito", Toast.LENGTH_SHORT).show()
+                            val intent = Intent(requireActivity(), MainActivity::class.java)
+                            intent.putExtra("usuario_id", usuarioValido.id)
+                            startActivity(intent)
+                            requireActivity().finish()
+                        } else {
+
+                        }
+                    } else if (idRol == 2 ) {
+
+                    } else {
+                        Log.e("IniciarSesion", "Error en la respuesta: ${response.errorBody()?.string()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<List<Cliente>>, t: Throwable) {
+                    Log.e("IniciarSesion", "Error de red: ${t.message}")
+                    Toast.makeText(requireContext(), "Error de conexión", Toast.LENGTH_SHORT).show()
+                }
+            })
+        } else {
+            // Manejo de error
+        }
+
+        Log.d("UsuarioIniciado", "Usuario iniciado: $usuarioIniciado")*/
+
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -65,6 +119,7 @@ class MainActivity : AppCompatActivity() {
                                                  )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
 
         val btnLogOut = findViewById<Button>(R.id.btn_logout)
 

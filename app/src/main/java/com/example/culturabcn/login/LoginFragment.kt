@@ -17,6 +17,7 @@ import com.example.culturabcn.MainActivity
 import com.example.culturabcn.R
 import com.example.culturabcn.clases.Cliente
 import com.example.culturabcn.clases.Gestor
+import com.example.culturabcn.clases.UserLogged
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -65,7 +66,11 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                             if (usuarioValido != null) {
                                 autenticado = true
                                 Toast.makeText(requireContext(), "Inicio de sesión con éxito", Toast.LENGTH_SHORT).show()
-                                startActivity(Intent(requireActivity(), MainActivity::class.java))
+                                val intent = Intent(requireActivity(), MainActivity::class.java)
+                                UserLogged.userId = usuarioValido.id
+                                UserLogged.rolId = usuarioValido.idRol
+
+                                startActivity(intent)
                                 requireActivity().finish()
                             } else {
                                 manejarRespuestaFinal()
@@ -93,7 +98,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                             if (usuarioValido != null) {
                                 autenticado = true
                                 Toast.makeText(requireContext(), "Inicio de sesión con éxito", Toast.LENGTH_SHORT).show()
-                                startActivity(Intent(requireActivity(), MainActivity::class.java))
+                                val intent = Intent(requireActivity(), MainActivity::class.java)
+                                UserLogged.userId = usuarioValido.id
+                                UserLogged.rolId = usuarioValido.idRol
+                                startActivity(intent)
                                 requireActivity().finish()
                             } else {
                                 manejarRespuestaFinal()

@@ -1,5 +1,6 @@
 package com.example.culturabcn.clases
 
+import java.io.Serializable
 import java.util.Date
 
 class Gestor(
@@ -13,4 +14,4 @@ class Gestor(
     telefono: String,
     chat: MutableList<Chat>,
     foto: String?
-            ) : Usuario(id, nombre, apellidos, correo, contrasena, fechaNacimiento, edad, telefono, chat, foto, idRol = 1, eventos = mutableListOf())
+            ) : Usuario(id, nombre, apellidos, correo, contrasena, fechaNacimiento, edad, telefono, chat, foto, idRol = 1, eventos = mutableListOf()), Serializable

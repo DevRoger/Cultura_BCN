@@ -1,15 +1,28 @@
 package com.example.culturabcn.ui.perfil
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.culturabcn.API.RetrofitClient
+import com.example.culturabcn.MainActivity
 import com.example.culturabcn.R
+import com.example.culturabcn.clases.Cliente
 import com.example.culturabcn.clases.Evento
+import com.example.culturabcn.clases.Gestor
+import com.example.culturabcn.clases.UserLogged
 import com.example.culturabcn.ui.inicio.EventosAdapter
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.sql.Date
 import java.sql.Time
 
@@ -26,6 +39,100 @@ class PerfilFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+        // Recibimos el cliente si es cliente
+        if (UserLogged.rolId == 1) {
+            RetrofitClient.apiService.getUsuariosRol1().enqueue(object : Callback<List<Cliente>> {
+                @SuppressLint("SetTextI18n")
+                override fun onResponse(
+                    call: Call<List<Cliente>>,
+                    response: Response<List<Cliente>>
+                                       ) {
+                    if (response.isSuccessful) {
+                        val clientes = response.body()
+                        val usuarioIniciado =
+                            clientes?.find { it.id == UserLogged.userId}
+
+                        if (usuarioIniciado != null) {
+
+                            val txtNombreUsuario = view.findViewById<TextView>(R.id.txtNombreUsuario)
+                            val txtFechaNacimiento = view.findViewById<TextView>(R.id.txtFechaNacimiento)
+                            val txtEdad = view.findViewById<TextView>(R.id.txtEdad)
+                            val txtCorreo = view.findViewById<TextView>(R.id.txtCorreo)
+                            val txtTelefono = view.findViewById<TextView>(R.id.txtTelefono)
+                            val txtGestor = view.findViewById<TextView>(R.id.txtGestor)
+
+                            txtNombreUsuario.text = usuarioIniciado.nombre + " " + usuarioIniciado.apellidos
+                            txtFechaNacimiento.text = usuarioIniciado.fechaNacimiento.replace("T00:00:00", "")
+                            txtEdad.text = usuarioIniciado.edad.toString()
+                            txtCorreo.text = usuarioIniciado.correo
+                            txtTelefono.text = usuarioIniciado.telefono
+                            txtGestor.visibility = View.GONE
+
+                        } else {
+                            Log.e(
+                                "PerfilFragment",
+                                "Error al recibir el usuario: ${response.errorBody()?.string()}")
+                        }
+                    } else {
+                        Log.e(
+                            "PerfilFragment",
+                            "Error en la respuesta: ${response.errorBody()?.string()}"
+                             )
+                    }
+                }
+
+                override fun onFailure(call: Call<List<Cliente>>, t: Throwable) {
+                    Log.e("PerfilFragment", "Error de red: ${t.message}")
+                    Toast.makeText(requireContext(), "Error de conexión", Toast.LENGTH_SHORT).show()
+                }
+            })
+        } else {
+            // Si el usuario es gestor lo recibimos aqui
+            RetrofitClient.apiService.getUsuariosRol2().enqueue(object : Callback<List<Gestor>> {
+                override fun onResponse(call: Call<List<Gestor>>, response: Response<List<Gestor>>) {
+                    if (response.isSuccessful) {
+                        val clientes = response.body()
+                        val usuarioIniciado =
+                            clientes?.find { it.id == UserLogged.userId}
+
+                        if (usuarioIniciado != null) {
+
+                            val txtNombreUsuario = view.findViewById<TextView>(R.id.txtNombreUsuario)
+                            val txtFechaNacimiento = view.findViewById<TextView>(R.id.txtFechaNacimiento)
+                            val txtEdad = view.findViewById<TextView>(R.id.txtEdad)
+                            val txtCorreo = view.findViewById<TextView>(R.id.txtCorreo)
+                            val txtTelefono = view.findViewById<TextView>(R.id.txtTelefono)
+                            val txtGestor = view.findViewById<TextView>(R.id.txtGestor)
+
+                            txtNombreUsuario.text = usuarioIniciado.nombre + " " + usuarioIniciado.apellidos
+                            txtFechaNacimiento.text = usuarioIniciado.fechaNacimiento.replace("T00:00:00", "")
+                            txtEdad.text = usuarioIniciado.edad.toString()
+                            txtCorreo.text = usuarioIniciado.correo
+                            txtTelefono.text = usuarioIniciado.telefono
+                            txtGestor.visibility = View.VISIBLE
+
+                        } else {
+                            Log.e(
+                                "PerfilFragment",
+                                "Error al recibir el usuario: ${response.errorBody()?.string()}")
+                        }
+                    } else {
+                        Log.e(
+                            "PerfilFragment",
+                            "Error en la respuesta: ${response.errorBody()?.string()}"
+                             )
+                    }
+                }
+
+                override fun onFailure(call: Call<List<Gestor>>, t: Throwable) {
+                    Log.e("PerfilFragment", "Error de red: ${t.message}")
+                    Toast.makeText(requireContext(), "Error de conexión", Toast.LENGTH_SHORT).show()
+                }
+            })
+        }
+
 
         val eventos = mutableListOf(
             Evento(
