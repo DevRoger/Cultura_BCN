@@ -1,22 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="15dp"
+    android:orientation="vertical"
     tools:context=".ui.informacion.InformacionFragment">
 
-    <TextView
-        android:id="@+id/text_home"
+    <!-- LinearLayout como contenedor principal para manejar la orientación y el flujo de los elementos -->
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="wrap_content">
+
+        <!-- Título de la sección -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="FAQs (Preguntas Frecuentes)"
+            android:textAlignment="center"
+            android:textColor="@color/rojo_claro"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <!-- Primera pregunta y su respuesta -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="8dp"
+            android:text="1. ¿Cómo puedo reservar entradas para un evento?"
+            android:textAlignment="textStart"
+            android:textColor="@color/rojo_claro"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Puedes reservar tus entradas directamente desde la aplicación, seleccionando el evento de tu interés en la sección de eventos y siguiendo los pasos para completar tu reserva. Asegúrate de tener una cuenta en la aplicación para poder finalizar la reserva."
+            android:textAlignment="textStart"
+            android:textSize="18sp" />
+
+        <!-- Segunda pregunta y su respuesta -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="8dp"
+            android:text="2. ¿Es necesario crear una cuenta para usar la aplicación?"
+            android:textAlignment="textStart"
+            android:textColor="@color/rojo_claro"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No es necesario crear una cuenta para navegar por la aplicación y ver los eventos, pero sí debes registrarte si deseas realizar reservas. Tener una cuenta también te permitirá recibir notificaciones sobre nuevos eventos y ofertas especiales."
+            android:textAlignment="textStart"
+            android:textSize="18sp" />
+
+        <!-- Tercera pregunta y su respuesta -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="8dp"
+            android:text="3. ¿Puedo cancelar o modificar mi reserva?"
+            android:textAlignment="textStart"
+            android:textColor="@color/rojo_claro"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sí, puedes cancelar o modificar tu reserva desde la sección de 'Mis Reservas' dentro de la aplicación. Ten en cuenta que algunos eventos pueden tener políticas específicas sobre cambios y cancelaciones, por lo que te recomendamos revisar los términos al realizar la reserva."
+            android:textAlignment="textStart"
+            android:textSize="18sp" />
+
+        <!-- Cuarta pregunta y su respuesta -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="8dp"
+            android:text="4. ¿El edificio es accesible para personas con movilidad reducida?"
+            android:textAlignment="textStart"
+            android:textColor="@color/rojo_claro"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sí, el edificio está completamente adaptado para personas con movilidad reducida. Contamos con accesos especiales, ascensores, y baños adaptados. Si necesitas asistencia adicional, no dudes en contactarnos a través de la sección de contacto de la aplicación."
+            android:textAlignment="textStart"
+            android:textSize="18sp" />
+
+        <!-- Quinta pregunta y su respuesta -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="8dp"
+            android:text="5. ¿Cómo llego al edificio?"
+            android:textAlignment="textStart"
+            android:textColor="@color/rojo_claro"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Puedes encontrar la ubicación exacta y un mapa interactivo en la sección de Información de la aplicación. Además, si tienes dudas sobre el transporte público o las mejores rutas, también te ofrecemos información detallada para facilitar tu llegada."
+            android:textAlignment="textStart"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+</ScrollView>
