@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Cultura BCN</string>
+    <string name="navigation_drawer_open">Obre el menú de navegació</string>
+    <string name="navigation_drawer_close">Tanca el menú de navegació</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Capçalera de navegació</string>
+    <string name="action_settings">Configuració</string>
+
+    <string name="menu_inicio">Inici</string>
+    <string name="menu_perfil">Perfil</string>
+    <string name="menu_mensajes">Missatges</string>
+    <string name="menu_configuracion">Configuració</string>
+    <string name="menu_informacion">Informació</string>
+    <string name="menu_contacto">Contacte</string>
+    <string name="hello_blank_fragment">Hola fragment en blanc</string>
+</resources>

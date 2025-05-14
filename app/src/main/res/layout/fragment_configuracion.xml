@@ -48,7 +48,7 @@ android:weightSum="3">
     android:src="@drawable/catalan" />
 
 <ImageView
-    android:id="@+id/idIngles"
+    android:id="@+id/imgIngles"
     android:layout_width="100dp"
     android:layout_height="100dp"
     android:layout_weight="1"
