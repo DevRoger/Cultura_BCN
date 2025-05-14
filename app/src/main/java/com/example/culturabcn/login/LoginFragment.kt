@@ -41,6 +41,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         val edtContrasenya = view.findViewById<EditText>(R.id.edtContrasenya)
 
         btnIniciar.setOnClickListener {
+            edtCorreo.setBackgroundResource(R.drawable.rounded_edittext)
+            edtContrasenya.setBackgroundResource(R.drawable.rounded_edittext)
             val correo = edtCorreo.text.toString().trim()
             val contrasena = edtContrasenya.text.toString().trim()
 
@@ -53,6 +55,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                     respuestasRecibidas++
                     if (respuestasRecibidas == 2 && !autenticado) {
                         Toast.makeText(requireContext(), "Correo y/o contraseña incorrectos.", Toast.LENGTH_SHORT).show()
+                        edtCorreo.setBackgroundResource(R.drawable.rounded_edittext_error)
+                        edtContrasenya.setBackgroundResource(R.drawable.rounded_edittext_error)
                     }
                 }
 
@@ -120,6 +124,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 })
 
             } else {
+                edtCorreo.setBackgroundResource(R.drawable.rounded_edittext_error)
+                edtContrasenya.setBackgroundResource(R.drawable.rounded_edittext_error)
                 Toast.makeText(requireContext(), "Correo o contraseña vacíos", Toast.LENGTH_SHORT).show()
             }
         }

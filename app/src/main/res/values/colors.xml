@@ -13,5 +13,6 @@
     <color name="onboarding_oscuro">#F0B4C0</color>
     <color name="item_evento_background">#F2F2F2</color>
     <color name="booking_background">#D9D9D9</color>
+    <color name="rojo_error">#FFAAAA</color>
     D9D9D9
 </resources>

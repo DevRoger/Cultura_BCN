@@ -20,8 +20,10 @@
         android:layout_gravity="start"
         android:background="@drawable/gardient_nav_bar"
         android:fitsSystemWindows="true"
+        app:itemIconTint="@color/white"
         app:headerLayout="@layout/nav_header_main"
         app:itemTextColor="@color/white"
+        app:itemBackground="@drawable/nav_item_background"
         app:menu="@menu/activity_main_drawer">
 
         <!-- LinearLayout al final del NavigationView para el botón de Cerrar sesión -->
