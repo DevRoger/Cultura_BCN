@@ -22,8 +22,7 @@
             android:textColor="@color/rojo_claro"
             android:textSize="28sp"
             android:textStyle="bold"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="30dp" />
+            android:layout_marginTop="6dp" />
 
         <!-- Dirección -->
         <TextView
@@ -43,6 +42,15 @@
             android:textColor="@android:color/black"
             android:textSize="18sp"
             android:textStyle="italic" />
+
+        <!-- Mapa -->
+        <org.osmdroid.views.MapView
+            android:id="@+id/mapView"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:clickable="true"
+            android:focusable="true"/>
+
 
         <!-- Teléfono -->
         <TextView
