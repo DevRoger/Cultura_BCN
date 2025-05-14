@@ -1,12 +1,17 @@
 package com.example.culturabcn.ui.perfil
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.app.DatePickerDialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -20,13 +25,22 @@ import com.example.culturabcn.clases.Evento
 import com.example.culturabcn.clases.Gestor
 import com.example.culturabcn.clases.UserLogged
 import com.example.culturabcn.ui.inicio.EventosAdapter
+import com.google.gson.Gson
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.sql.Date
 import java.sql.Time
+import java.util.Calendar
 
 class PerfilFragment : Fragment() {
+    private lateinit var usuarioC: Cliente
+    private lateinit var usuarioG: Gestor
+
 
     // Metodo onCreateView para inflar el layout del fragmento
     override fun onCreateView(
@@ -56,6 +70,7 @@ class PerfilFragment : Fragment() {
 
                         if (usuarioIniciado != null) {
 
+                            usuarioC = usuarioIniciado
                             val txtNombreUsuario = view.findViewById<TextView>(R.id.txtNombreUsuario)
                             val txtFechaNacimiento = view.findViewById<TextView>(R.id.txtFechaNacimiento)
                             val txtEdad = view.findViewById<TextView>(R.id.txtEdad)
@@ -98,6 +113,8 @@ class PerfilFragment : Fragment() {
                             clientes?.find { it.id == UserLogged.userId}
 
                         if (usuarioIniciado != null) {
+
+                            usuarioG = usuarioIniciado
 
                             val txtNombreUsuario = view.findViewById<TextView>(R.id.txtNombreUsuario)
                             val txtFechaNacimiento = view.findViewById<TextView>(R.id.txtFechaNacimiento)
@@ -202,10 +219,112 @@ class PerfilFragment : Fragment() {
                   )
                                    )
 
+        val btnEditar = view.findViewById<Button>(R.id.btnEditar)
+
+        btnEditar.setOnClickListener {
+            showEditDialog(requireContext())
+        }
 
         // Configurar el RecyclerView
         val recyclerView: RecyclerView = view.findViewById(R.id.recyclerViewReservas)
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.adapter = PerfilAdapter(eventos)
+    }
+
+
+    // Mostrar dialogo cuando editamos el perfil
+    @SuppressLint("MissingInflatedId")
+    private fun showEditDialog(context: Context) {
+        // Infla el diseño del diálogo
+        val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_edt_user, null)
+
+        // Inicializa los EditText y el botón del diálogo
+        val edtNombre = dialogView.findViewById<EditText>(R.id.edtNombre)
+        val edtApellido = dialogView.findViewById<EditText>(R.id.edtApellidos)
+        val edtCorreo = dialogView.findViewById<EditText>(R.id.edtCorreo)
+        val edtTelefono = dialogView.findViewById<EditText>(R.id.edtTelefono)
+        val btnCancelar = dialogView.findViewById<Button>(R.id.btnCancelar)
+        val btnConfirmar = dialogView.findViewById<Button>(R.id.btnConfirmar)
+        val edtFechaNacimiento = dialogView.findViewById<EditText>(R.id.edtFechaNacimiento)
+
+
+        // Fecha
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        edtFechaNacimiento.setOnClickListener {
+            val datePickerDialog = DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
+                val selectedDate = String.format("%04d-%02d-%02d", selectedYear, selectedMonth + 1, selectedDay)
+                edtFechaNacimiento.setText(selectedDate)
+            }, year, month, day)
+            datePickerDialog.show()
+        }
+
+
+        if (UserLogged.rolId == 1 ) {
+            // Rellenar EditText
+            edtNombre.setText(usuarioC.nombre)
+            edtApellido.setText(usuarioC.apellidos)
+            edtCorreo.setText(usuarioC.correo)
+            edtTelefono.setText(usuarioC.telefono)
+            edtFechaNacimiento.setText(usuarioC.fechaNacimiento.replace("T00:00:00", ""))
+        } else {
+            // Rellenar EditText
+            edtNombre.setText(usuarioG.nombre)
+            edtApellido.setText(usuarioG.apellidos)
+            edtCorreo.setText(usuarioG.correo)
+            edtTelefono.setText(usuarioG.telefono)
+            edtFechaNacimiento.setText(usuarioG.fechaNacimiento.replace("T00:00:00", ""))
+        }
+
+
+        // Crea el AlertDialog
+        val dialogBuilder = AlertDialog.Builder(context)
+            .setView(dialogView)
+            .setCancelable(true)
+
+        // Crea el AlertDialog
+        val dialog = dialogBuilder.create()
+
+        btnConfirmar.setOnClickListener {
+            // Implementar clase para guardar los datos
+            /*val musicoEditado = musico.valoracion?.let { valoracion ->
+                DataTransferObjectUsuario(
+                    id = musico.id,
+                    nombre = edtNombre.text.toString(),
+                    correo = edtCorreo.text.toString(),
+                    contrasenya = musico.contrasenya,
+                    telefono = edtTelefono.text.toString(),
+                    latitud = 0.0,
+                    longitud = 0.0,
+                    fechaRegistro = null,
+                    estado = true,
+                    valoracion = valoracion,
+                    tipo = "Musico",
+                    apodo = edtApodo.text.toString(),
+                    apellido = edtApellido.text.toString(),
+                    genero = edtGenero.text.toString(),
+                    edad = edadCalculada,
+                    biografia = edtBiografia.text.toString(),
+                    imagen = "",
+                    idUsuario = musico.idUsuario,
+                    generosMusicales = musico.generoMusical,
+                    direccion = "",
+                    tipo_local = "",
+                    HorarioApertura = null,
+                    HorarioCierre = null,
+                    descripcion = ""
+                                         )*/
+
+        }
+
+        btnCancelar.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        // Muestra el diálogo
+        dialog.show()
     }
 }

@@ -1,12 +1,18 @@
 package com.example.culturabcn
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.AttributeSet
 import android.util.Log
 import android.view.Menu
+import android.view.View
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -16,6 +22,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.culturabcn.API.RetrofitClient
 import com.example.culturabcn.clases.Cliente
 import com.example.culturabcn.clases.Gestor
+import com.example.culturabcn.clases.UserLogged
 import com.example.culturabcn.databinding.ActivityMainBinding
 import com.example.culturabcn.login.LoginActivity
 import com.example.culturabcn.ui.perfil.PerfilFragment
@@ -52,49 +59,6 @@ class MainActivity : AppCompatActivity() {
         //___________________________________________________________________________________________
 
 
-        // Aquí deberías agregar el fragmento al contenedor correspondiente
-        /*supportFragmentManager.beginTransaction()
-            .replace(R.id.nav_host_fragment_content_main, perfilFragment)
-            .commit()*/
-
-
-        /*if (idRol == 1) {
-            // Aquí haces la consulta con el ID
-
-            RetrofitClient.apiService.getUsuariosRol1().enqueue(object : Callback<List<Cliente>> {
-                override fun onResponse(call: Call<List<Cliente>>, response: Response<List<Cliente>>) {
-                    if (response.isSuccessful) {
-                        val clientes = response.body()
-                        val usuarioValido = clientes?.find { it.correo == correo && it.contrasenaHash == contrasena }
-
-                        if (usuarioValido != null) {
-                            autenticado = true
-                            Toast.makeText(requireContext(), "Inicio de sesión con éxito", Toast.LENGTH_SHORT).show()
-                            val intent = Intent(requireActivity(), MainActivity::class.java)
-                            intent.putExtra("usuario_id", usuarioValido.id)
-                            startActivity(intent)
-                            requireActivity().finish()
-                        } else {
-
-                        }
-                    } else if (idRol == 2 ) {
-
-                    } else {
-                        Log.e("IniciarSesion", "Error en la respuesta: ${response.errorBody()?.string()}")
-                    }
-                }
-
-                override fun onFailure(call: Call<List<Cliente>>, t: Throwable) {
-                    Log.e("IniciarSesion", "Error de red: ${t.message}")
-                    Toast.makeText(requireContext(), "Error de conexión", Toast.LENGTH_SHORT).show()
-                }
-            })
-        } else {
-            // Manejo de error
-        }
-
-        Log.d("UsuarioIniciado", "Usuario iniciado: $usuarioIniciado")*/
-
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -122,7 +86,6 @@ class MainActivity : AppCompatActivity() {
 
 
         val btnLogOut = findViewById<Button>(R.id.btn_logout)
-
         // Botón de cerrar sesión
         btnLogOut.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
@@ -130,6 +93,90 @@ class MainActivity : AppCompatActivity() {
 
             this.finish()
         }
+
+
+
+        // Recibimos el cliente si es cliente
+        if (UserLogged.rolId == 1) {
+            RetrofitClient.apiService.getUsuariosRol1().enqueue(object : Callback<List<Cliente>> {
+                @SuppressLint("SetTextI18n")
+                override fun onResponse(
+                    call: Call<List<Cliente>>,
+                    response: Response<List<Cliente>>
+                                       ) {
+                    if (response.isSuccessful) {
+                        val clientes = response.body()
+                        val usuarioIniciado =
+                            clientes?.find { it.id == UserLogged.userId}
+
+                        if (usuarioIniciado != null) {
+
+                            val headerView = binding.navView.getHeaderView(0)
+                            val txtNombreNav = headerView.findViewById<TextView>(R.id.txtNombreNav)
+                            val txtCorreoNav = headerView.findViewById<TextView>(R.id.txtCorreoNav)
+
+                            txtNombreNav.text = usuarioIniciado.nombre + " " + usuarioIniciado.apellidos
+                            txtCorreoNav.text = usuarioIniciado.correo
+
+                        } else {
+                            Log.e(
+                                "PerfilFragment",
+                                "Error al recibir el usuario: ${response.errorBody()?.string()}")
+                        }
+                    } else {
+                        Log.e(
+                            "PerfilFragment",
+                            "Error en la respuesta: ${response.errorBody()?.string()}"
+                             )
+                    }
+                }
+
+                override fun onFailure(call: Call<List<Cliente>>, t: Throwable) {
+                    Log.e("PerfilFragment", "Error de red: ${t.message}")
+                    Toast.makeText(this@MainActivity, "Error de conexión", Toast.LENGTH_SHORT).show()
+                }
+            })
+        } else {
+            // Si el usuario es gestor lo recibimos aqui
+            RetrofitClient.apiService.getUsuariosRol2().enqueue(object : Callback<List<Gestor>> {
+                override fun onResponse(call: Call<List<Gestor>>, response: Response<List<Gestor>>) {
+                    if (response.isSuccessful) {
+                        val clientes = response.body()
+                        val usuarioIniciado =
+                            clientes?.find { it.id == UserLogged.userId}
+
+                        if (usuarioIniciado != null) {
+
+
+                            val headerView = binding.navView.getHeaderView(0)
+                            val txtNombreNav = headerView.findViewById<TextView>(R.id.txtNombreNav)
+                            val txtCorreoNav = headerView.findViewById<TextView>(R.id.txtCorreoNav)
+
+                            txtNombreNav.text = usuarioIniciado.nombre + " " + usuarioIniciado.apellidos
+                            txtCorreoNav.text = usuarioIniciado.correo
+
+
+                        } else {
+                            Log.e(
+                                "PerfilFragment",
+                                "Error al recibir el usuario: ${response.errorBody()?.string()}")
+                        }
+                    } else {
+                        Log.e(
+                            "PerfilFragment",
+                            "Error en la respuesta: ${response.errorBody()?.string()}"
+                             )
+                    }
+                }
+
+                override fun onFailure(call: Call<List<Gestor>>, t: Throwable) {
+                    Log.e("PerfilFragment", "Error de red: ${t.message}")
+                    Toast.makeText(this@MainActivity, "Error de conexión", Toast.LENGTH_SHORT).show()
+                }
+            })
+        }
+
+
     }
 
     override fun onSupportNavigateUp(): Boolean {

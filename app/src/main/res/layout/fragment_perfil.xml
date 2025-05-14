@@ -17,6 +17,7 @@
 
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEditar"
                 android:layout_width="100dp"
                 android:layout_height="35dp"
                 android:background="@drawable/degradado_button"
