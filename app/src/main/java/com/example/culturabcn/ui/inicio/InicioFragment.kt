@@ -13,6 +13,7 @@ import com.example.culturabcn.R
 import com.example.culturabcn.clases.Chat
 import com.example.culturabcn.clases.Cliente
 import com.example.culturabcn.clases.Evento
+import com.example.culturabcn.clases.UserLogged
 import java.sql.Date
 import java.sql.Time
 
@@ -107,12 +108,20 @@ class InicioFragment : Fragment() {
         // --------------------------------------------------
 
 
+
         // Configurar el RecyclerView
         val recyclerView: RecyclerView = view.findViewById(R.id.recyclerViewEventos)
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.adapter = EventosAdapter(eventos)
 
+
         val btnAnadirEvento = view.findViewById<ImageView>(R.id.btnAnadirEvento)
+
+        if (UserLogged.rolId == 2) {
+            btnAnadirEvento.visibility = View.VISIBLE
+        } else {
+            btnAnadirEvento.visibility = View.GONE
+        }
 
         btnAnadirEvento.setOnClickListener {
             findNavController().navigate(R.id.crearFragment)
