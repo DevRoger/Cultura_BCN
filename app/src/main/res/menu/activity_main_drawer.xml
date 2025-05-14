@@ -10,23 +10,23 @@
             android:title="@string/menu_inicio" />
         <item
             android:id="@+id/nav_perfil"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_menu_perfil"
             android:title="@string/menu_perfil" />
         <item
             android:id="@+id/nav_mensajes"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_menu_chat"
             android:title="@string/menu_mensajes" />
         <item
             android:id="@+id/nav_configuracion"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_menu_config"
             android:title="@string/menu_configuracion" />
         <item
             android:id="@+id/nav_informacion"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_menu_info"
             android:title="@string/menu_informacion" />
         <item
             android:id="@+id/nav_contacto"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_menu_contacto"
             android:title="@string/menu_contacto" />
     </group>
 </menu>
