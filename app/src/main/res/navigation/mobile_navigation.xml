@@ -41,4 +41,10 @@
         android:label="@string/menu_contacto"
         tools:layout="@layout/fragment_configuracion" />
 
+    <fragment
+        android:id="@+id/crearFragment"
+        android:name="com.example.culturabcn.ui.crear.CrearFragment"
+        android:label="Crear Evento"
+        tools:layout="@layout/fragment_crear" />
+
 </navigation>

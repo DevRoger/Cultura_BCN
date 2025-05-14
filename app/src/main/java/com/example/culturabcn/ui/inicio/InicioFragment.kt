@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.culturabcn.R
@@ -34,64 +36,6 @@ class InicioFragment : Fragment() {
         -----------------------------------------------------
          */
 
-        val usuarios = mutableListOf(
-            Cliente(
-                id = 1,
-                nombre = "Juan",
-                apellidos = "Pérez",
-                correo = "juan.perez@email.com",
-                contrasena = "contrasena1",
-                fechaNacimiento = "1990-05-10", // 10 de mayo de 1990
-                edad = 34,
-                telefono = "123456789",
-                chat = mutableListOf(),
-                foto = null
-                   ), Cliente(
-                id = 2,
-                nombre = "María",
-                apellidos = "Gómez",
-                correo = "maria.gomez@email.com",
-                contrasena = "contrasena2",
-                fechaNacimiento = "1990-05-10", // 25 de agosto de 1985
-                edad = 39,
-                telefono = "987654321",
-                chat = mutableListOf(),
-                foto = null
-                             ), Cliente(
-                id = 3,
-                nombre = "Carlos",
-                apellidos = "López",
-                correo = "carlos.lopez@email.com",
-                contrasena = "contrasena3",
-                fechaNacimiento = "1990-05-10", // 15 de marzo de 1992
-                edad = 32,
-                telefono = "112233445",
-                chat = mutableListOf(),
-                foto = null
-                                       ), Cliente(
-                id = 4,
-                nombre = "Laura",
-                apellidos = "Martínez",
-                correo = "laura.martinez@email.com",
-                contrasena = "contrasena4",
-                fechaNacimiento = "1990-05-10", // 5 de diciembre de 1995
-                edad = 29,
-                telefono = "556677889",
-                chat = mutableListOf(),
-                foto = null
-                                                 ), Cliente(
-                id = 5,
-                nombre = "Pedro",
-                apellidos = "Sánchez",
-                correo = "pedro.sanchez@email.com",
-                contrasena = "contrasena5",
-                fechaNacimiento = "1990-05-10", // 20 de junio de 1988
-                edad = 36,
-                telefono = "998877665",
-                chat = mutableListOf(),
-                foto = null
-                                                           )
-                                    )
         val eventos = mutableListOf(
             Evento(
                 id_evento = 1,
@@ -168,6 +112,12 @@ class InicioFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.adapter = EventosAdapter(eventos)
 
+        val btnAnadirEvento = view.findViewById<ImageView>(R.id.btnAnadirEvento)
+
+        btnAnadirEvento.setOnClickListener {
+            findNavController().navigate(R.id.crearFragment)
+
+        }
 
     }
 }

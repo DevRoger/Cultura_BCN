@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.crear.CrearFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="Crear Evento"
+            android:textAlignment="center"
+            android:textColor="@color/rojo_claro"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+
+        <!-- Nombre -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="4dp"
+            android:paddingStart="60dp"
+            android:text="Nombre"
+            android:textAlignment="textStart"
+            android:textColor="@color/rojo_claro"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/edtNombre"
+            android:layout_width="330dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:background="@drawable/rounded_edittext"
+            android:inputType="textPersonName"
+            android:maxLines="1"
+            android:paddingStart="14dp"
+            tools:ignore="RtlSymmetry" />
+
+        <!-- Descripción -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="4dp"
+            android:paddingStart="60dp"
+            android:text="Descripción"
+            android:textAlignment="textStart"
+            android:textColor="@color/rojo_claro"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/edtDescripcion"
+            android:layout_width="330dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:background="@drawable/rounded_edittext"
+            android:inputType="text"
+            android:maxLines="1"
+            android:paddingStart="14dp"
+            tools:ignore="RtlSymmetry" />
+
+        <!-- Fecha -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="4dp"
+            android:paddingStart="60dp"
+            android:text="Fecha"
+            android:textAlignment="textStart"
+            android:textColor="@color/rojo_claro"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/edtFecha"
+            android:layout_width="330dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:background="@drawable/rounded_edittext"
+            android:inputType="date"
+            android:maxLines="1"
+            android:paddingStart="14dp"
+            tools:ignore="RtlSymmetry" />
+
+        <!-- Hora -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="4dp"
+            android:paddingStart="60dp"
+            android:text="Hora"
+            android:textAlignment="textStart"
+            android:textColor="@color/rojo_claro"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/edtHora"
+            android:layout_width="330dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:background="@drawable/rounded_edittext"
+            android:inputType="time"
+            android:maxLines="1"
+            android:paddingStart="14dp"
+            tools:ignore="RtlSymmetry" />
+
+        <!-- Sala -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="4dp"
+            android:paddingStart="60dp"
+            android:text="Sala"
+            android:textAlignment="textStart"
+            android:textColor="@color/rojo_claro"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/edtSala"
+            android:layout_width="330dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:background="@drawable/rounded_edittext"
+            android:maxLines="1"
+            android:paddingStart="14dp"
+            tools:ignore="RtlSymmetry" />
+
+        <!-- Aforo -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="4dp"
+            android:paddingStart="60dp"
+            android:text="Aforo"
+            android:textAlignment="textStart"
+            android:textColor="@color/rojo_claro"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/edtAforo"
+            android:layout_width="330dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:background="@drawable/rounded_edittext"
+            android:inputType="text"
+            android:maxLines="1"
+            android:paddingStart="14dp"
+            tools:ignore="RtlSymmetry" />
+
+        <!-- Precio -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="4dp"
+            android:paddingStart="60dp"
+            android:text="Precio"
+            android:textAlignment="textStart"
+            android:textColor="@color/rojo_claro"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/edtPrecio"
+            android:layout_width="330dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:background="@drawable/rounded_edittext"
+            android:inputType="text"
+            android:maxLines="1"
+            android:paddingStart="14dp"
+            tools:ignore="RtlSymmetry" />
+
+        <!-- EdadMinima -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="4dp"
+            android:paddingStart="60dp"
+            android:text="Edad Mínima"
+            android:textAlignment="textStart"
+            android:textColor="@color/rojo_claro"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/edtEdadMinima"
+            android:layout_width="330dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:background="@drawable/rounded_edittext"
+            android:inputType="text"
+            android:maxLines="1"
+            android:paddingStart="14dp"
+            tools:ignore="RtlSymmetry" />
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCrear"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/degradado_button"
+            android:minHeight="0dp"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:text="Crear"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:backgroundTint="@null" />
+
+    </LinearLayout>
+
+</ScrollView>

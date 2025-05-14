@@ -13,4 +13,6 @@
     <string name="menu_configuracion">Configuración</string>
     <string name="menu_informacion">Información</string>
     <string name="menu_contacto">Contacto</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
