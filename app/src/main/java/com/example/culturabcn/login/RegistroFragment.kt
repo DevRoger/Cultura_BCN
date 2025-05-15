@@ -11,7 +11,16 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
+import com.example.culturabcn.API.RetrofitClient
 import com.example.culturabcn.R
+import com.example.culturabcn.clases.Usuario
+import com.example.culturabcn.clases.UsuarioRegistrat
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.Calendar
 
 class RegistroFragment: Fragment(R.layout.fragment_registro) {
@@ -107,11 +116,63 @@ class RegistroFragment: Fragment(R.layout.fragment_registro) {
 
                 Toast.makeText(requireContext(), "Registre completat (crida API pendent)", Toast.LENGTH_LONG).show()
 
-                // Després d'una crida a l'API de registre exitosa:
-                // - Podries navegar a l'Activity de Login:
-                // startActivity(Intent(this, LoginActivity::class.java)) // Substitueix LoginActivity per la teva classe
-                // - Acabar aquesta Activity perquè l'usuari no hi pugui tornar enrere amb el botó Back:
-                // finish()
+
+                // 3. Preparar les PARTS de la petició multipart (camps de text i fitxer)
+
+                val nombrePart = nombre.toRequestBody("text/plain".toMediaTypeOrNull())
+                val apellidosPart = apellidos.toRequestBody("text/plain".toMediaTypeOrNull())
+                val correoPart = correo.toRequestBody("text/plain".toMediaTypeOrNull())
+                val contrasenaHashPart = contrasenya.toRequestBody("text/plain".toMediaTypeOrNull()) // *** Enviem el HASH ***
+                val fechaNacimientoPart = fechaNacimiento.toRequestBody("text/plain".toMediaTypeOrNull())
+                val telefonoPart = telefono.toRequestBody("text/plain".toMediaTypeOrNull())
+                // *** Determina la ID del rol segons la lògica de l'app (per exemple, si l'usuari tria Cliente o Gestor) ***
+                val idRolValue = 1 // *** Substitueix 1 per la lògica per obtenir el rol real (1 per Client, 2 per Gestor, etc.) ***
+                val idRolPart = idRolValue.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+
+                // 4. Fer la crida a l'API POST utilitzant RetrofitClient
+                RetrofitClient.apiService.postUsuario(
+                    nombrePart,
+                    apellidosPart,
+                    correoPart,
+                    contrasenaHashPart,
+                    fechaNacimientoPart,
+                    telefonoPart,
+                    idRolPart
+                                                     ).enqueue(object : Callback<UsuarioRegistrat> { // Esperem la teva classe de resposta
+
+                    override fun onResponse(call: Call<UsuarioRegistrat>, response: Response<UsuarioRegistrat>) {
+                        // Aquest codi s'executa al fil principal (UI thread)
+                        if (response.isSuccessful) {
+                            val nuevoUsuario: UsuarioRegistrat? = response.body()
+                            if (nuevoUsuario != null) {
+                                Log.d("RegistroAPI", "Usuari registrat amb èxit. ID: ${nuevoUsuario.id}, Correu: ${nuevoUsuario.correo}")
+                                Toast.makeText(requireContext(), "Registre completat!", Toast.LENGTH_LONG).show()
+
+                                // *** Després del registre exitós, navega a la pantalla de Login o a la principal ***
+                                // Normalment, aniries a Login perquè l'usuari s'autentiqui un cop registrat.
+                                // startActivity(Intent(this@RegistroActivity, LoginActivity::class.java)) // Exemple: Substitueix LoginActivity per la teva classe
+                                // finish() // Acabar l'Activity de registre
+
+                            } else {
+                                Log.e("RegistroAPI", "Registre exitós (codi 2xx), però resposta del cos nul.")
+                                Toast.makeText(requireContext(), "Registre completat, però dades de resposta buides.", Toast.LENGTH_SHORT).show()
+                            }
+                        } else {
+                            // La petició va fallar (codi 400, 409, 500, etc.)
+                            val statusCode = response.code()
+                            val errorBody = response.errorBody()?.string()
+                            Log.e("RegistroAPI", "Error al registrar usuari. Codi: $statusCode, Error: $errorBody")
+
+                        }
+                    }
+
+                    override fun onFailure(call: Call<UsuarioRegistrat>, t: Throwable) {
+                        // Fallada a nivell de xarxa o excepció inesperada
+                        Log.e("RegistroAPI", "Fallo de red o excepció al registrar usuari", t)
+                        Toast.makeText(requireContext(), "Error de connexió. Torna a intentar-ho.", Toast.LENGTH_SHORT).show()
+                    }
+                }) // Fi de enqueue
+
 
             }
         }

@@ -4,13 +4,18 @@ import com.example.culturabcn.clases.Cliente
 import com.example.culturabcn.clases.Evento
 import com.example.culturabcn.clases.Gestor
 import com.example.culturabcn.clases.Usuario
+import com.example.culturabcn.clases.UsuarioRegistrat
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.PUT
+import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -29,6 +34,19 @@ interface ApiService {
 
     @GET("api/eventos/byuser/{userId}/reserved")
     fun getReservasPorUsuario(@Path("userId") userId: Int): Call<List<Evento>>
+
+    @Multipart
+    @POST("api/usuarios")
+    fun postUsuario(
+        @Part("nombre") nombre: RequestBody,
+        @Part("apellidos") apellidos: RequestBody,
+        @Part("correo") correo: RequestBody,
+        @Part("contrasena_hash") contrasenaHash: RequestBody, // *** El nom del camp a l'API és "contrasena_hash" ***
+        @Part("fecha_nacimiento") fechaNacimiento: RequestBody,
+        @Part("telefono") telefono: RequestBody,
+        @Part("id_rol") idRol: RequestBody, // *** El nom del camp a l'API és "id_rol" ***
+                   ): Call<UsuarioRegistrat> // *** Esperem un objecte UsuarioRegistrat com a resposta ***
+
 
 
     /*
