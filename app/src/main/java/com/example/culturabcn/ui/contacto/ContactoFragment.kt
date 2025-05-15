@@ -1,10 +1,7 @@
 package com.example.culturabcn.ui.contacto
 
-import android.content.Context.LOCATION_SERVICE
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.location.Location
-import android.location.LocationManager
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.example.culturabcn.databinding.FragmentContactoBinding
 import org.osmdroid.config.Configuration
@@ -59,8 +56,25 @@ class ContactoFragment : Fragment() {
 
         // Configurar ubicación inicial del mapa
         mapView.controller.setZoom(18.0)
-        mapView.controller.setCenter(GeoPoint(41.3870, 2.1700)) // Barcelona como ejemplo
+        mapView.controller.setCenter(GeoPoint(41.4028766,2.1747596)) // Barcelona como ejemplo
 
+
+        val edificioCulturaMark = GeoPoint(41.4028766,2.1747596) // Usamos las mismas coordenadas de antes
+
+        val marcadorFijo = Marker(mapView)
+        marcadorFijo.position = edificioCulturaMark
+        marcadorFijo.title = "Edifici Cultural, Can Manyé" // Título para el marcador
+
+        // Cargar el drawable 'location_mark.xml'
+        // Asegúrate de que location_mark.xml está en la carpeta res/drawable
+        val marcadorIcon = ResourcesCompat.getDrawable(resources, com.example.culturabcn.R.drawable.location_mark, null)
+        marcadorFijo.icon = marcadorIcon
+
+        // Ajustar el anclaje del marcador (opcional, para centrar la base del icono en la coordenada)
+        marcadorFijo.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
+
+        // Añadir el marcador al mapa
+        mapView.overlays.add(marcadorFijo)
         return binding.root
     }
 
@@ -74,46 +88,10 @@ class ContactoFragment : Fragment() {
         startActivity(intent)
     }
 
-    private fun initializeLocationUpdates() {
-        val locationManager = requireActivity().getSystemService(LOCATION_SERVICE) as LocationManager
-        if (ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.ACCESS_FINE_LOCATION)
-            == PackageManager.PERMISSION_GRANTED) {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5f) { location ->
-                updateLocationOnMap(location)
-            }
-            val location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
-            if (location != null) {
-                updateLocationOnMap(location)
-            } else {
-                Toast.makeText(requireContext(), "Esperando actualización de ubicación...", Toast.LENGTH_SHORT).show()
-            }
-        } else {
-            Toast.makeText(requireContext(), "Permiso de ubicación no concedido", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private fun updateLocationOnMap(location: Location) {
-        // Mover el mapa a la ubicación actual
-        val geoPoint = GeoPoint(location.latitude, location.longitude)
-        mapView.controller.setCenter(geoPoint)
-
-        // Añadir marcador de ubicación
-        ubicacionMarker?.let {
-            mapView.overlays.remove(it)
-        }
-
-        val marker = Marker(mapView)
-        marker.position = geoPoint
-        marker.title = "Tu ubicación"
-        marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
-        mapView.overlays.add(marker)
-    }
-
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == PERMISSIONS_REQUEST_CODE) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                initializeLocationUpdates()
             } else {
                 Toast.makeText(requireContext(), "Permiso de ubicación requerido", Toast.LENGTH_LONG).show()
             }

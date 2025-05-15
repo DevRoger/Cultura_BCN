@@ -83,7 +83,7 @@
                 android:layout_width="140dp"
                 android:layout_height="70dp"
                 android:layout_gravity="right"
-                android:layout_marginLeft="210dp"
+                android:layout_marginLeft="205dp"
                 android:textStyle="bold"
                 android:textColor="@color/rojo_claro"
                 android:background="@android:color/transparent"
