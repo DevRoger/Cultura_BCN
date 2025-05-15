@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
-            android:text="Registrar-se"
+            android:text="@string/registrarse"
             android:textColor="@color/white"
             android:textSize="42dp"
             android:textStyle="bold" />
@@ -48,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
-            android:text="Sisplau, registra't per continuar."
+            android:text="@string/por_favor_registrate_para_continuar"
             android:textColor="@color/white"
             android:textStyle="bold" />
 
@@ -88,7 +88,7 @@
             android:paddingTop="0dp"
             android:layout_marginTop="25dp"
             android:layout_marginRight="55dp"            android:paddingBottom="0dp"
-            android:text="Registrar-se"
+            android:text="@string/registrarse"
             android:textColor="@color/white"
             android:textStyle="bold"
             app:backgroundTint="@null" />
@@ -106,7 +106,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ja tens un compta? "
+            android:text="@string/ya_tienes_una_cuenta"
             android:textColor="@color/black"
             android:textStyle="bold" />
 
@@ -114,7 +114,7 @@
             android:id="@+id/txtInicia"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="INICIA SESSIÓ"
+            android:text="@string/iniciar_sesi_n"
             android:textColor="@color/rojo_claro"
             android:textStyle="bold
 " />

@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
-            android:text="Recuperació"
+            android:text="@string/recuperaci_n"
             android:textColor="@color/white"
             android:textSize="42dp"
             android:textStyle="bold" />
@@ -48,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
-            android:text="T'has oblidat de la teva contrasenya?"
+            android:text="@string/te_has_olvidado_de_tu_contrase_a"
             android:textColor="@color/white"
             android:textStyle="bold" />
 
@@ -72,8 +72,9 @@
             android:minHeight="0dp"
             android:paddingTop="0dp"
             android:layout_marginTop="25dp"
-            android:layout_marginRight="55dp"            android:paddingBottom="0dp"
-            android:text="Recuperar"
+            android:layout_marginRight="55dp"
+            android:paddingBottom="0dp"
+            android:text="@string/recuperar"
             android:textColor="@color/white"
             android:textStyle="bold"
             app:backgroundTint="@null" />
@@ -91,14 +92,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Necessites ajuda? "
+            android:text="@string/necesitas_ayuda"
             android:textColor="@color/black"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="www.barcelona.cat"
+            android:text="@string/www_barcelona_cat"
             android:textColor="@color/rojo_claro"
             android:textStyle="bold
 " />

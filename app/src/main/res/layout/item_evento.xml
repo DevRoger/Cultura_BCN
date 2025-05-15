@@ -73,7 +73,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Preu: "
+                                android:text="@string/precio"
                                 android:textColor="@color/rojo_claro"
                                 android:textStyle="bold" />
 
@@ -94,7 +94,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Data: "
+                                android:text="@string/fecha"
                                 android:textColor="@color/rojo_claro"
                                 android:textStyle="bold" />
 
@@ -115,7 +115,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Hora: "
+                                android:text="@string/hora"
                                 android:textColor="@color/rojo_claro"
                                 android:textStyle="bold" />
 
@@ -166,7 +166,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Descripció: "
+                            android:text="@string/descripci_n"
                             android:textColor="@color/rojo_claro"
                             android:textStyle="bold" />
 
@@ -187,7 +187,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Aforament: "
+                            android:text="@string/aforo"
                             android:textColor="@color/rojo_claro"
                             android:textStyle="bold" />
 
@@ -208,7 +208,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Edat mínima: "
+                            android:text="@string/edad_m_nima"
                             android:textColor="@color/rojo_claro"
                             android:textStyle="bold" />
 
@@ -228,7 +228,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Lloc: "
+                            android:text="@string/lugar"
                             android:textColor="@color/rojo_claro"
                             android:textStyle="bold" />
 
@@ -250,7 +250,7 @@
                     android:minHeight="0dp"
                     android:paddingTop="0dp"
                     android:layout_marginBottom="10dp"
-                    android:text="RESERVAR"
+                    android:text="@string/reservar"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     app:backgroundTint="@null" />

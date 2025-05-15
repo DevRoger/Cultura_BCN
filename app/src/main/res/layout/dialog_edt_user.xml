@@ -18,7 +18,7 @@
             android:background="@color/rojo_claro"
             android:gravity="center | left"
             android:paddingLeft="20dp"
-            android:text="Editar Perfil"
+            android:text="@string/editar_perfil"
             android:textColor="@color/white"
             android:textSize="22dp"
             android:layout_marginBottom="10dp"
@@ -43,7 +43,7 @@
             android:minHeight="0dp"
             android:paddingTop="0dp"
             android:paddingBottom="0dp"
-            android:text="Cambiar"
+            android:text="@string/cambiar"
             android:textColor="@color/white"
             android:textSize="12sp"
             android:textStyle="bold"
@@ -59,7 +59,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nombre: "
+                android:text="@string/nombre_con_puntos"
                 android:textColor="@color/rojo_claro"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -81,7 +81,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Apellidos: "
+                android:text="@string/apellidos"
                 android:textColor="@color/rojo_claro"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -104,7 +104,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Correo: "
+                android:text="@string/correo_con_puntos"
                 android:textColor="@color/rojo_claro"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -127,7 +127,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Telefono: "
+                android:text="@string/telefono_con_puntos"
                 android:textColor="@color/rojo_claro"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -150,7 +150,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Fecha de nacimiento: "
+                android:text="@string/fecha_de_nacimiento_con_puntos"
                 android:textColor="@color/rojo_claro"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -181,7 +181,7 @@
                 android:layout_weight="0.9"
                 android:background="@drawable/degradado_button_oscuro"
                 android:minWidth="120dp"
-                android:text="Cancelar"
+                android:text="@string/cancelar"
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 android:textStyle="bold"
@@ -195,7 +195,7 @@
                 android:layout_weight="0.9"
                 android:background="@drawable/degradado_button"
                 android:minWidth="120dp"
-                android:text="Confirmar"
+                android:text="@string/confirmar"
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 android:textStyle="bold"

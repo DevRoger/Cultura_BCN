@@ -17,7 +17,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Contacta con nosotros"
+            android:text="@string/contacta_con_nosotros"
             android:textAlignment="center"
             android:textColor="@color/rojo_claro"
             android:textSize="28sp"
@@ -28,7 +28,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Dirección:"
+            android:text="@string/direcci_n"
             android:textColor="@color/rojo_claro"
             android:textSize="22sp"
             android:textStyle="bold"
@@ -38,7 +38,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Edifici Cultural Can Manyé\nCarrer de Mallorca, 401, 08013 Barcelona"
+            android:text="@string/edifici_cultural_can_many_ncarrer_de_mallorca_401_08013_barcelona"
             android:textColor="@android:color/black"
             android:textSize="18sp"
             android:textStyle="italic" />
@@ -56,7 +56,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Atención telefónica:"
+            android:text="@string/atenci_n_telef_nica"
             android:textColor="@color/rojo_claro"
             android:textSize="22sp"
             android:textStyle="bold"
@@ -66,7 +66,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tel. general: 932 123 456\nHorario: de lunes a viernes, de 9:00 a 18:00 h"
+            android:text="@string/tel_general_932_123_456_nhorario_de_lunes_a_viernes_de_9_00_a_18_00_h"
             android:textColor="@android:color/black"
             android:textSize="18sp"
             android:textStyle="italic" />
@@ -75,7 +75,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Correo:"
+            android:text="@string/correo"
             android:textColor="@color/rojo_claro"
             android:textSize="22sp"
             android:textStyle="bold"
@@ -85,7 +85,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="contacte@barcelona.cat\neventos.cultura@barcelona.cat"
+            android:text="@string/contacte_barcelona_cat_neventos_cultura_barcelona_cat"
             android:textColor="@android:color/black"
             android:textSize="18sp"
             android:textStyle="italic" />
@@ -94,7 +94,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Redes sociales:"
+            android:text="@string/redes_sociales"
             android:textColor="@color/rojo_claro"
             android:textSize="22sp"
             android:textStyle="bold"

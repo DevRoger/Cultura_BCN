@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:text="Crear Evento"
+            android:text="@string/crear_evento"
             android:textAlignment="center"
             android:textColor="@color/rojo_claro"
             android:textSize="40sp"
@@ -39,7 +39,7 @@
             android:layout_marginTop="6dp"
             android:layout_marginBottom="4dp"
             android:paddingStart="60dp"
-            android:text="Nombre"
+            android:text="@string/nombre"
             android:textAlignment="textStart"
             android:textColor="@color/rojo_claro"
             android:textSize="20sp" />
@@ -62,7 +62,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginBottom="4dp"
             android:paddingStart="60dp"
-            android:text="Descripción"
+            android:text="@string/descripci_n_sin_puntos"
             android:textAlignment="textStart"
             android:textColor="@color/rojo_claro"
             android:textSize="20sp" />
@@ -85,7 +85,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginBottom="4dp"
             android:paddingStart="60dp"
-            android:text="Fecha"
+            android:text="@string/fecha_sin_puntos"
             android:textAlignment="textStart"
             android:textColor="@color/rojo_claro"
             android:textSize="20sp" />
@@ -108,7 +108,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginBottom="4dp"
             android:paddingStart="60dp"
-            android:text="Hora"
+            android:text="@string/hora_sin_puntos"
             android:textAlignment="textStart"
             android:textColor="@color/rojo_claro"
             android:textSize="20sp" />
@@ -131,7 +131,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginBottom="4dp"
             android:paddingStart="60dp"
-            android:text="Sala"
+            android:text="@string/sala_sin_puntos"
             android:textAlignment="textStart"
             android:textColor="@color/rojo_claro"
             android:textSize="20sp" />
@@ -151,7 +151,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Numeradas"
+            android:text="@string/numeradas"
             android:textSize="20sp" />
 
         <LinearLayout
@@ -172,7 +172,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="4dp"
-                    android:text="Filas"
+                    android:text="@string/filas"
                     android:textAlignment="center"
                     android:textColor="@color/rojo_claro"
                     android:textSize="20sp" />
@@ -200,7 +200,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="4dp"
-                    android:text="Columnas"
+                    android:text="@string/columnas"
                     android:textAlignment="center"
                     android:textColor="@color/rojo_claro"
                     android:textSize="20sp" />
@@ -226,7 +226,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginBottom="4dp"
             android:paddingStart="60dp"
-            android:text="Aforo"
+            android:text="@string/aforo_sin_puntos"
             android:textAlignment="textStart"
             android:textColor="@color/rojo_claro"
             android:textSize="20sp" />
@@ -249,7 +249,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginBottom="4dp"
             android:paddingStart="60dp"
-            android:text="Precio"
+            android:text="@string/precio_sin_puntos"
             android:textAlignment="textStart"
             android:textColor="@color/rojo_claro"
             android:textSize="20sp" />
@@ -272,7 +272,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginBottom="4dp"
             android:paddingStart="60dp"
-            android:text="Edad Mínima"
+            android:text="@string/edad_m_nima_sin_puntos"
             android:textAlignment="textStart"
             android:textColor="@color/rojo_claro"
             android:textSize="20sp" />
@@ -299,7 +299,7 @@
             android:minHeight="0dp"
             android:paddingTop="0dp"
             android:paddingBottom="0dp"
-            android:text="Crear"
+            android:text="@string/crear"
             android:textColor="@color/white"
             android:textStyle="bold"
             app:backgroundTint="@null" />

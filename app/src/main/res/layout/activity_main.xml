@@ -44,7 +44,7 @@
                 android:minHeight="0dp"
                 android:paddingTop="0dp"
                 android:layout_gravity="right |bottom"
-                android:text="Tancar sessió"
+                android:text="@string/cerrar_sesi_n"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 app:backgroundTint="@null" />

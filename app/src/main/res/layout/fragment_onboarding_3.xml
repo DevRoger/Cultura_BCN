@@ -45,7 +45,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Experiència interactiva\nen temps real"
+            android:text="@string/experi_ncia_interactiva_nen_temps_real"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="36dp"
@@ -54,7 +54,7 @@
         <TextView
             android:layout_width="350dp"
             android:layout_height="wrap_content"
-            android:text="Xateja amb assistents, tria la teva butaca\npreferida i comparteix moments amb la comunitat."
+            android:text="@string/xateja_amb_assistents_tria_la_teva_butaca_npreferida_i_comparteix_moments_amb_la_comunitat"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="14dp"
@@ -77,7 +77,7 @@
         android:minHeight="0dp"
         android:paddingTop="0dp"
         android:paddingBottom="0dp"
-        android:text="Continuar"
+        android:text="@string/continuar"
         android:textColor="@color/white"
         android:textSize="12sp"
         android:textStyle="bold"

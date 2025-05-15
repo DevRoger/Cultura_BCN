@@ -38,8 +38,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Benvingut a
-            CULTURA BCN"
+            android:text="@string/benvingut_a_ncultura_bcn"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="34dp"
@@ -56,7 +55,7 @@
             android:paddingTop="0dp"
             android:layout_marginTop="20dp"
             android:paddingBottom="0dp"
-            android:text="Iniciar Sessió"
+            android:text="@string/iniciar_sesi_n"
             android:textColor="@color/white"
             android:textStyle="bold"
             app:backgroundTint="@null" />
@@ -72,7 +71,7 @@
             android:paddingTop="0dp"
             android:layout_marginTop="20dp"
             android:paddingBottom="0dp"
-            android:text="Registrar-se"
+            android:text="@string/registrarse"
             android:textColor="@color/white"
             android:textStyle="bold"
             app:backgroundTint="@null" />
