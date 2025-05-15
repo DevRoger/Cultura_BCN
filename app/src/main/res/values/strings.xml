@@ -92,4 +92,9 @@
     <string name="confirmar">Confirmar</string>
     <string name="cerrar_sesi_n">Cerrar sesión</string>
     <string name="usuario_gestor">Usuario Gestor</string>
+    <string name="apellidos_sin_puntos">Apellidos</string>
+    <string name="correo_sin_puntos">Correo</string>
+    <string name="fecha_de_nacimiento_sin_puntos">Fecha de nacimiento</string>
+    <string name="tel_fono_sin_puntos">Teléfono</string>
+    <string name="contrase_a">Contraseña</string>
 </resources>
