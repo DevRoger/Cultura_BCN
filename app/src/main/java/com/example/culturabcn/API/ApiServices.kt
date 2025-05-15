@@ -27,6 +27,10 @@ interface ApiService {
     @GET("api/asientos/eventoasientoscounts/{id}")
     fun getAsientosCount(@Path("id") eventId: Int): Call<Int>
 
+    @GET("api/eventos/byuser/{userId}/reserved")
+    fun getReservasPorUsuario(@Path("userId") userId: Int): Call<List<Evento>>
+
+
     /*
     @GET("api/Local")
     suspend fun getLocales(): List<Local>
