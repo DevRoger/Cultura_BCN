@@ -24,6 +24,9 @@ interface ApiService {
     @GET("api/usuarios/rol/2")
     fun getUsuariosRol2(): Call<List<Gestor>>
 
+    @GET("api/asientos/eventoasientoscounts/{id}")
+    fun getAsientosCount(@Path("id") eventId: Int): Call<Int>
+
     /*
     @GET("api/Local")
     suspend fun getLocales(): List<Local>

@@ -151,7 +151,7 @@ class PerfilFragment : Fragment() {
         }
 
 
-        val eventos = mutableListOf(
+        /*val eventos = mutableListOf(
             Evento(
                 id_evento = 1,
                 nombre = "Concierto de Rock",
@@ -217,7 +217,7 @@ class PerfilFragment : Fragment() {
                 precio = 15.0f,
                 edad_minima = 12
                   )
-                                   )
+                                   )*/
 
         val btnEditar = view.findViewById<Button>(R.id.btnEditar)
 
@@ -228,7 +228,7 @@ class PerfilFragment : Fragment() {
         // Configurar el RecyclerView
         val recyclerView: RecyclerView = view.findViewById(R.id.recyclerViewReservas)
         recyclerView.layoutManager = LinearLayoutManager(activity)
-        recyclerView.adapter = PerfilAdapter(eventos)
+        //recyclerView.adapter = PerfilAdapter(eventos)
     }
 
 

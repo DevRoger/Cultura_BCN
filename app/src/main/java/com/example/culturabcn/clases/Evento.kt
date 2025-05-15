@@ -6,9 +6,9 @@ import java.util.Date
 data class Evento(
     val id_evento: Int,
     val nombre: String,
-    val fecha: Date,
-    val hora_inicio: Time,
-    val hora_fin: Time,
+    val fecha: String,
+    val hora_inicio: String,
+    val hora_fin: String,
     val descripcion: String,
     val lugar: String,
     val aforo: Int,

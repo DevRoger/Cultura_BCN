@@ -2,6 +2,7 @@ package com.example.culturabcn.ui.inicio
 
 import android.annotation.SuppressLint
 import android.graphics.Outline
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,13 +11,18 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.culturabcn.API.RetrofitClient
 import com.example.culturabcn.R
 import com.example.culturabcn.clases.Evento
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.text.SimpleDateFormat
 
-class EventosAdapter(private val eventos: List<Evento>) :
+class EventosAdapter(private var eventos: List<Evento>) :
     RecyclerView.Adapter<EventosAdapter.EventoViewHolder>() {
 
     // Variable para almacenar el índice del item desplegado
@@ -26,7 +32,7 @@ class EventosAdapter(private val eventos: List<Evento>) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventoViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(
             R.layout.item_evento, parent, false
-                                                              ) // Reemplaza item_evento con el nombre de tu layout
+                                                              )
         return EventoViewHolder(view)
     }
 
@@ -37,15 +43,43 @@ class EventosAdapter(private val eventos: List<Evento>) :
                                  ) {
         val evento = eventos[position]
 
-        // Formatear la fecha y la hora para que se vea correctamente
-        val fechaFormat = SimpleDateFormat("dd/MM/yyyy")
-        val horaFormat = SimpleDateFormat("HH:mm")
+        RetrofitClient.apiService.getAsientosCount(evento.id_evento).enqueue(object : Callback<Int> {
+            override fun onResponse(call: Call<Int>, response: Response<Int>) {
+                if (response.isSuccessful) {
+
+                    val seatCount: Int? = response.body()
+
+                    if (seatCount != null) {
+
+                        holder.aforoEvento.text = " $seatCount persones"
+                    } else {
+                        Log.e("API_CALL", "Resposta exitosa per a l'esdeveniment ${evento.id_evento}, però cos de resposta nul.")
+                    }
+                } else {
+                    val statusCode = response.code()
+                    val errorBody = response.errorBody()?.string()
+
+                    Log.e("API_CALL", "La crida a l'API va fallar per a l'esdeveniment ${evento.id_evento}.")
+                    Log.e("API_CALL", "Codi d'estat: $statusCode, Cos de l'error: $errorBody")
+
+                }
+            }
+
+            override fun onFailure(call: Call<Int>, t: Throwable) {
+                Log.e("API_CALL", "Fallo de connexió a la API per a l'esdeveniment ${evento.id_evento}", t)
+            }
+        })
+
+
+
+
+        // -------------------
 
         holder.nombreEvento.text = evento.nombre
         holder.precioEvento.text = "${evento.precio}€"
-        holder.fechaEvento.text = fechaFormat.format(evento.fecha)
+        holder.fechaEvento.text = evento.fecha.replace("T00:00:00", "")
         holder.horaEvento.text =
-            "${horaFormat.format(evento.hora_inicio)} - ${horaFormat.format(evento.hora_fin)}"
+            "${evento.hora_inicio.replace(":00.0000000", "")} - ${evento.hora_fin.replace(":00.0000000", "")}"
         holder.descripcionEvento.text = evento.descripcion
         holder.aforoEvento.text = " ${evento.aforo} persones"
         holder.edadMinima.text = "${evento.edad_minima} anys"
@@ -113,5 +147,11 @@ class EventosAdapter(private val eventos: List<Evento>) :
         val edadMinima: TextView = view.findViewById(R.id.edadMinima)
         val lugarEvento: TextView = view.findViewById(R.id.lugarEvento)
         val btnReservar: Button = view.findViewById(R.id.btnReservar)
+    }
+
+    // Metodo para actualizar la lista de eventos
+    fun updateData(newList: List<Evento>) {
+        eventos = newList
+        notifyDataSetChanged() // Notifica al RecyclerView que los datos han cambiado
     }
 }
