@@ -25,6 +25,7 @@
             android:textStyle="bold" />
 
         <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imgPerfilDialog"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_gravity="center"
@@ -34,7 +35,7 @@
             app:shapeAppearanceOverlay="@style/CircularImage" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnCambiarImagen"
+            android:id="@+id/btnCambiarImg"
             android:layout_width="120dp"
             android:layout_height="30dp"
             android:layout_gravity="center"
