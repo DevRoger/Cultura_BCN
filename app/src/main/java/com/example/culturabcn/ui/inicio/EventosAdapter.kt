@@ -1,6 +1,8 @@
 package com.example.culturabcn.ui.inicio
 
 import android.annotation.SuppressLint
+import android.graphics.Bitmap // *** Importa Bitmap ***
+import android.graphics.BitmapFactory // *** Importa BitmapFactory ***
 import android.graphics.Outline
 import android.util.Log
 import android.view.LayoutInflater
@@ -20,13 +22,13 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.culturabcn.API.RetrofitClient
 import com.example.culturabcn.R
 import com.example.culturabcn.clases.Evento
-import com.example.culturabcn.clases.RutaImagenDto // Importa RutaImagenDto
-import okhttp3.ResponseBody // Importa ResponseBody
-import retrofit2.Call // Importa Call
-import retrofit2.Callback // Importa Callback
-import retrofit2.Response // Importa Response
-// Importa si fas servir formats de data/hora
-// import java.text.SimpleDateFormat
+import com.example.culturabcn.clases.RutaImagenDto
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.io.InputStream // *** Importa InputStream ***
+import java.io.IOException // *** Importa IOException ***
 
 
 class EventosAdapter(private var eventos: List<Evento>) :
@@ -49,88 +51,93 @@ class EventosAdapter(private var eventos: List<Evento>) :
                                  ) {
         val evento = eventos[position]
 
-        val imageUrl = evento.foto_url // Aquesta és la ruta local del servidor (C:\...)
+        val imageUrl = evento.foto_url // Ruta local del servidor
 
-        // Log la URL que s'està intentant enviar a l'API POST
         Log.d("IMAGE_DEBUG", "Intentant carregar imatge per a l'esdeveniment ${evento.nombre}. Ruta local enviada a POST: ${imageUrl}")
 
-        // Mostra una imatge de placeholder mentre es fa la crida API
+        // Mostra una imatge de placeholder
         holder.imgLogo.setImageResource(R.drawable.side_nav_bar) // Utilitza el teu drawable de placeholder
 
         if (!imageUrl.isNullOrBlank()) {
-            // Creem l'objecte que enviarem en el cos de la petició POST
             val rutaImagenDto = RutaImagenDto(Foto_url = imageUrl)
 
-            // *** Fem la crida API per obtenir el contingut binari de la imatge ***
             RetrofitClient.apiService.postImagen(rutaImagenDto).enqueue(object : Callback<ResponseBody> {
                 override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                    val eventNameForLog = evento.nombre // Per tenir el nom de l'esdeveniment en els logs
-                    val receivedUrlForLog = imageUrl // Per tenir la URL rebuda en els logs
+                    val eventNameForLog = evento.nombre
+                    val receivedUrlForLog = imageUrl
 
-                    // *** LOGS DETALLATS DE LA RESPOSTA API ***
                     Log.d("IMAGE_API_RESPONSE", "onResponse per a l'esdeveniment $eventNameForLog. Codi: ${response.code()}")
 
                     if (response.isSuccessful) {
                         val responseBody = response.body()
-                        // Log si el cos de la resposta és nul i les capçaleres de contingut
                         Log.d("IMAGE_API_RESPONSE", "postImagen exitós per a $eventNameForLog. Cos nul: ${responseBody == null}. Content-Type: ${response.headers().get("Content-Type")}. Content-Length: ${responseBody?.contentLength() ?: "N/A"}")
 
                         if (responseBody != null) {
-                            // *** Si la resposta és exitosa i té cos, intentem carregar el contingut amb Glide ***
+                            // *** TEST DE DIAGNOSI: Intentar decodificar manualment a Bitmap ***
+                            var inputStream: InputStream? = null // Declarar InputStream fora del try per al finally
                             try {
-                                // Utilitza Glide per carregar des de l'InputStream del ResponseBody
-                                Glide.with(holder.itemView.context)
-                                    .load(responseBody.byteStream())
-                                    // Aplica opcions de Glide com placeholder i imatge d'error
-                                    .apply(RequestOptions()
-                                               .placeholder(R.drawable.side_nav_bar) // Placeholder
-                                               .error(R.drawable.ic_menu_slideshow)) // Imatge si falla la càrrega des del contingut rebut
-                                    .diskCacheStrategy(DiskCacheStrategy.ALL) // Estratègia de cache
-                                    .into(holder.imgLogo) // Carrega a la ImageView
+                                // Obtenim l'InputStream del cos de la resposta
+                                inputStream = responseBody.byteStream()
+                                // Intentem decodificar l'InputStream directament a un Bitmap
+                                val bitmap = BitmapFactory.decodeStream(inputStream)
 
-                                Log.d("IMAGE_LOAD_SUCCESS", "Imatge carregada amb èxit per a l'esdeveniment $eventNameForLog des del contingut de l'API.")
+                                if (bitmap != null) {
+                                    // *** Si la decodificació a Bitmap té èxit, establim el Bitmap a la ImageView ***
+                                    // Aquí no utilitzem Glide per carregar el Bitmap, només el mostrem directament.
+                                    holder.imgLogo.setImageBitmap(bitmap)
+                                    Log.d("IMAGE_LOAD_SUCCESS", "Imatge decodificada a Bitmap i mostrada amb èxit per a l'esdeveniment $eventNameForLog.")
+                                } else {
+                                    // *** Si BitmapFactory.decodeStream retorna nul, les dades no són un Bitmap vàlid ***
+                                    // Això passa si les dades no corresponen a un format d'imatge suportat o estan corruptes.
+                                    Log.e("IMAGE_LOAD_ERROR", "BitmapFactory.decodeStream va retornar nul per a l'esdeveniment $eventNameForLog. Probablement dades d'imatge invàlides. Ruta: $receivedUrlForLog")
+                                    holder.imgLogo.setImageResource(R.drawable.ic_menu_slideshow) // Imatge d'error
+                                }
 
-                            } catch (e: Exception) {
-                                // Captura qualsevol excepció que pugui ocórrer durant el processament del stream per part de Glide
-                                Log.e("IMAGE_LOAD_ERROR", "Error processant el contingut de la imatge per a l'esdeveniment $eventNameForLog. Ruta: $receivedUrlForLog", e)
-                                // Mostra la imatge d'error si hi ha un problema processant el contingut
+                            } catch (e: IOException) {
+                                // Captura errors d'entrada/sortida en llegir el stream
+                                Log.e("IMAGE_LOAD_ERROR", "Error de IO en llegir el stream de la imatge per a l'esdeveniment $eventNameForLog. Ruta: $receivedUrlForLog", e)
                                 holder.imgLogo.setImageResource(R.drawable.ic_menu_slideshow) // Imatge d'error
+                            } catch (e: Exception) {
+                                // Captura altres possibles excepcions durant la decodificació
+                                Log.e("IMAGE_LOAD_ERROR", "Excepció inesperada processant la imatge per a l'esdeveniment $eventNameForLog. Ruta: $receivedUrlForLog", e)
+                                holder.imgLogo.setImageResource(R.drawable.ic_menu_slideshow) // Imatge d'error
+                            } finally {
+                                // *** MOLT IMPORTANT: Tancar l'InputStream ***
+                                try {
+                                    inputStream?.close()
+                                } catch (e: IOException) {
+                                    Log.e("IMAGE_LOAD_ERROR", "Error tancant l'stream de la imatge per a l'esdeveniment $eventNameForLog", e)
+                                }
                             }
 
                         } else {
-                            // La resposta va ser exitosa (codi 2xx) però el cos és nul
+                            // Resposta exitosa (codi 2xx) però cos nul
                             Log.e("IMAGE_API_RESPONSE", "postImagen exitós però cos de resposta nul per a $eventNameForLog. Ruta: $receivedUrlForLog")
-                            // Mostra la imatge d'error si el cos és nul tot i l'èxit
-                            holder.imgLogo.setImageResource(R.drawable.ic_menu_slideshow) // O R.drawable.no_image_available
+                            holder.imgLogo.setImageResource(R.drawable.ic_menu_slideshow) // Imatge d'error
                         }
                     } else {
-                        // La crida API no va ser exitosa (codi d'error 4xx o 5xx)
+                        // Crida API no exitosa (codi d'error)
                         val statusCode = response.code()
                         val errorBody = response.errorBody()?.string()
                         Log.e("IMAGE_API_RESPONSE", "postImagen: Error API per a $eventNameForLog. Codi: ${statusCode}. Cos d'error: ${errorBody}. Ruta enviada: $receivedUrlForLog")
-                        // Mostra la imatge d'error si la crida API retorna un codi d'error
-                        holder.imgLogo.setImageResource(R.drawable.ic_menu_slideshow) // O R.drawable.no_image_available
+                        holder.imgLogo.setImageResource(R.drawable.ic_menu_slideshow) // Imatge d'error
                     }
                 }
 
                 override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                     val eventNameForLog = evento.nombre
                     val receivedUrlForLog = imageUrl
-                    // *** LOGS DETALLATS DE LA FALLADA DE XARXA ***
                     Log.e("IMAGE_API_FAILURE", "postImagen: Fallo de connexió a la API per a ${eventNameForLog}. Ruta enviada: ${receivedUrlForLog}. Error: ${t.message}", t)
-                    // Mostra la imatge d'error en cas de fallada de xarxa
-                    holder.imgLogo.setImageResource(R.drawable.ic_menu_slideshow) // O R.drawable.no_image_available
+                    holder.imgLogo.setImageResource(R.drawable.ic_menu_slideshow) // Imatge d'error
                 }
             })
         } else {
-            // Si foto_url és nul·la o buida a l'objecte Evento
+            // foto_url és nul·la o buida
             Log.d("IMAGE_DEBUG", "foto_url és nul·la o buida per a l'esdeveniment ${evento.nombre}. No es fa crida API.")
-            // Mostra la imatge per defecte immediatament
-            holder.imgLogo.setImageResource(R.drawable.ic_menu_gallery) // Utilitza el teu drawable per defecte
+            holder.imgLogo.setImageResource(R.drawable.ic_menu_gallery) // Drawable per defecte
         }
 
         // *** La crida API getAsientosCount DINS DE onBindViewHolder (ineficient, però aquí per ara) ***
-        // Mantenim aquest codi per aïllar el problema de la imatge.
         RetrofitClient.apiService.getAsientosCount(evento.id_evento).enqueue(object : Callback<Int> {
             override fun onResponse(call: Call<Int>, response: Response<Int>) {
                 if (response.isSuccessful) {
@@ -230,7 +237,7 @@ class EventosAdapter(private var eventos: List<Evento>) :
         val aforoEvento: TextView = view.findViewById(R.id.aforoEvento)
         val edadMinima: TextView = view.findViewById(R.id.edadMinima)
         val lugarEvento: TextView = view.findViewById(R.id.lugarEvento)
-        val btnReservar: Button = view.findViewById<Button>(R.id.btnReservar) // Pot ser Button o MaterialButton
+        val btnReservar: Button = view.findViewById<Button>(R.id.btnReservar)
     }
 
     // Metodo para actualizar la lista de eventos
