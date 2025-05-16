@@ -73,7 +73,7 @@
     <string name="nombre">Nombre</string>
     <string name="descripci_n_sin_puntos">Descripción</string>
     <string name="fecha_sin_puntos">Fecha</string>
-    <string name="hora_sin_puntos">Hora</string>
+    <string name="hora_sin_puntos">Hora Inicio</string>
     <string name="sala_sin_puntos">Sala</string>
     <string name="numeradas">Numeradas</string>
     <string name="filas">Filas</string>
@@ -97,4 +97,6 @@
     <string name="fecha_de_nacimiento_sin_puntos">Fecha de nacimiento</string>
     <string name="tel_fono_sin_puntos">Teléfono</string>
     <string name="contrase_a">Contraseña</string>
+    <string name="hora_fin">Hora Fin</string>
+    <string name="lugar_sin_puntos">Lugar</string>
 </resources>
