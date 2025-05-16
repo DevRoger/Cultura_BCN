@@ -2,6 +2,7 @@ package com.example.culturabcn.login
 
 import android.app.DatePickerDialog
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -13,7 +14,9 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.example.culturabcn.API.RetrofitClient
+import com.example.culturabcn.MainActivity
 import com.example.culturabcn.R
+import com.example.culturabcn.clases.UserLogged
 import com.example.culturabcn.clases.Usuario
 import com.example.culturabcn.clases.UsuarioRegistrat
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -171,14 +174,24 @@ class RegistroFragment: Fragment(R.layout.fragment_registro) {
                                 Log.d("RegistroAPI", "Usuari registrat amb èxit. ID: ${nuevoUsuario.id}, Correu: ${nuevoUsuario.correo}")
                                 Toast.makeText(requireContext(), "Registre completat!", Toast.LENGTH_LONG).show()
 
-                                // *** Netejar el fitxer temporal després de l'èxit ***
+                                // Netejar el fitxer temporal
                                 photoFile.delete()
                                 Log.d("RegistroAPI", "Fitxer temporal eliminat després d'èxit.")
 
+                                // *** Assignar ID i Rol de l'usuari acabat de registrar a UserLogged ***
+                                UserLogged.userId = nuevoUsuario.id // Obtenim la ID de l'usuari des de la resposta de l'API
+                                UserLogged.rolId = nuevoUsuario.idRol // Obtenim la ID del rol des de la resposta de l'API
+                                Log.d("RegistroAPI", "UserLogged establert: userId=${UserLogged.userId}, rolId=${UserLogged.rolId}")
 
-                                // *** Després del registre exitós, navega a la pantalla de Login o a la principal ***
-                                // startActivity(Intent(this@RegistroActivity, LoginActivity::class.java))
-                                // finish()
+
+                                // *** NAVEGAR A L'ACTIVITY PRINCIPAL (MainActivity) ***
+                                // Creem un Intent per iniciar la MainActivity
+                                val intent = Intent(requireActivity(), MainActivity::class.java)
+                                // Iniciem la MainActivity
+                                startActivity(intent)
+                                // Acabem l'Activity que conté aquest Fragment de registre,
+                                // de manera que l'usuari no hi pugui tornar amb el botó enrere.
+                                requireActivity().finish()
 
                             } else {
                                 Log.e("RegistroAPI", "Registre exitós (codi 2xx), però resposta del cos nul.")
