@@ -3,11 +3,13 @@ package com.example.culturabcn.API
 import com.example.culturabcn.clases.Cliente
 import com.example.culturabcn.clases.Evento
 import com.example.culturabcn.clases.Gestor
+import com.example.culturabcn.clases.RutaImagenDto
 import com.example.culturabcn.clases.Sala
 import com.example.culturabcn.clases.Usuario
 import com.example.culturabcn.clases.UsuarioRegistrat
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
@@ -38,6 +40,9 @@ interface ApiService {
 
     @GET("api/salas")
     fun getSalas(): Call<List<Sala>>
+
+    @POST("api/usuarios/imagen") // L'endpoint del nou servei
+    fun postImagen(@Body rutaImagen: RutaImagenDto): Call<ResponseBody>
 
     @Multipart
     @POST("api/usuarios")

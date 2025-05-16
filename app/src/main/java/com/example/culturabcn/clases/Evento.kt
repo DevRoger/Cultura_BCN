@@ -1,5 +1,6 @@
 package com.example.culturabcn.clases
 
+import com.google.gson.annotations.SerializedName
 import java.sql.Time
 import java.util.Date
 
@@ -14,5 +15,6 @@ data class Evento(
     val aforo: Int,
     val enumerada: Boolean,
     val precio: Float,
-    val edad_minima: Int
+    val edad_minima: Int,
+    @SerializedName("foto_url") val foto_url: String?
                  )
