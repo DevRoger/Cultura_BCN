@@ -805,6 +805,8 @@ class PerfilFragment : Fragment() {
             } else { // Assumeix que és un Client (o un altre tipus que no sigui Gestor)
                 txtGestor.visibility = View.GONE // Amagar si no és Gestor
             }
+
+            loadProfileImage(user.foto)
         }
     }
 }
