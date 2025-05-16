@@ -48,38 +48,23 @@ interface ApiService {
         @Part photo: MultipartBody.Part
                    ): Call<UsuarioRegistrat>
 
+    @Multipart // *** Indica que és una petició multipart ***
+    // La ruta base és 'api/usuarios'. L'API llegeix l'ID del formulari.
+    @PUT("api/usuarios") // *** Utilitza la ruta base de l'endpoint PUT ***
+    fun putUsuario(
+        // *** Totes les dades s'envien com a parts del formulari multipart ***
+        @Part("id_usuario") idUsuario: RequestBody, // L'API llegeix id_usuario del formulari
+        @Part("nombre") nombre: RequestBody,
+        @Part("apellidos") apellidos: RequestBody,
+        @Part("correo") correo: RequestBody,
+        @Part("foto_url") fotoUrl: RequestBody, // L'API llegeix foto_url del formulari (url ACTUAL de la foto)
+        @Part("contrasena_hash") contrasenaHash: RequestBody, // L'API llegeix contrasena_hash del formulari (HASH ACTUAL)
+        @Part("fecha_nacimiento") fechaNacimiento: RequestBody, // L'API llegeix fecha_nacimiento del formulari
+        @Part("telefono") telefono: RequestBody, // L'API llegeix telefono del formulari
+        @Part("id_rol") idRol: RequestBody, // L'API llegeix id_rol del formulari
+        @Part photo: MultipartBody.Part // *** La part del fitxer "photo" és obligatòria segons l'API ***
+                  ): Call<Boolean> // L'API retorna Ok(true), que es mapeja a Boolean
 
 
-    /*
-    @GET("api/Local")
-    suspend fun getLocales(): List<Local>
 
-    @GET("api/Evento")
-    suspend fun getEventos(): List<Evento>
-
-    @GET("api/Musico")
-    fun getMusicos(): Call<List<Musico>>
-
-    @GET("api/Musico")
-    fun getMusicoByCorreo(@Query("correo") correo: String): Call<Musico>
-
-    @GET("api/Local")
-    fun getLocalByCorreo(@Query("correo") correo: String): Call<Local>
-
-    @POST("api/Musico")
-    fun postMusico(@Body musico: Musico): Call<Boolean>
-
-    @POST("api/Local")
-    fun postLocal(@Body local: Local): Call<Boolean>
-
-    @POST("api/Evento")
-    fun postEvento(@Body evento: Evento): Call<Boolean>
-
-    @PUT("api/Musico/{id}")
-    suspend fun actualizarMusico(
-        @Path("id") id: Int,
-        @Body musico: DataTransferObjectUsuario): Response<Unit>
-
-    @DELETE("api/Evento/{id}")
-    fun deleteEvento(@Path("id") id: Int): Call<Evento>*/
 }
