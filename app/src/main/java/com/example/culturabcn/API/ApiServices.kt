@@ -41,11 +41,12 @@ interface ApiService {
         @Part("nombre") nombre: RequestBody,
         @Part("apellidos") apellidos: RequestBody,
         @Part("correo") correo: RequestBody,
-        @Part("contrasena_hash") contrasenaHash: RequestBody, // *** El nom del camp a l'API és "contrasena_hash" ***
+        @Part("contrasena_hash") contrasenaHash: RequestBody,
         @Part("fecha_nacimiento") fechaNacimiento: RequestBody,
         @Part("telefono") telefono: RequestBody,
-        @Part("id_rol") idRol: RequestBody, // *** El nom del camp a l'API és "id_rol" ***
-                   ): Call<UsuarioRegistrat> // *** Esperem un objecte UsuarioRegistrat com a resposta ***
+        @Part("id_rol") idRol: RequestBody,
+        @Part photo: MultipartBody.Part
+                   ): Call<UsuarioRegistrat>
 
 
 

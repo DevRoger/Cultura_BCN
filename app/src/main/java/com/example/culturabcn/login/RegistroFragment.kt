@@ -1,6 +1,7 @@
 package com.example.culturabcn.login
 
 import android.app.DatePickerDialog
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -17,10 +18,14 @@ import com.example.culturabcn.clases.Usuario
 import com.example.culturabcn.clases.UsuarioRegistrat
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.File
+import java.io.FileOutputStream
+import java.io.InputStream
 import java.util.Calendar
 
 class RegistroFragment: Fragment(R.layout.fragment_registro) {
@@ -102,42 +107,60 @@ class RegistroFragment: Fragment(R.layout.fragment_registro) {
                 // Si la validació de la Fase 2 passa, recollir totes les dades
                 val fechaNacimiento = edtFechaNacimiento.text.toString().trim()
                 val telefono = edtTelefono.text.toString().trim()
-                val contrasenya = edtContrasenya.text.toString()
+                val contrasenya = edtContrasenya.text.toString() // Contrasenya en text pla del camp
 
 
-                // Exemple: Loguejar les dades recollides i mostrar un missatge simple
-                Log.d("Registro", "Dades de registre completes:")
-                Log.d("Registro", "Nom: $nombre")
-                Log.d("Registro", "Cognoms: $apellidos")
-                Log.d("Registro", "Correu: $correo")
-                Log.d("Registro", "Data Naixement: $fechaNacimiento")
-                Log.d("Registro", "Telèfon: $telefono")
-                Log.d("Registro", "Contrasenya (NO loguejar en producció!): $contrasenya") // *** ADVERTÈNCIA: MAI loguejar contrasenyes en una app real! ***
-
-                Toast.makeText(requireContext(), "Registre completat (crida API pendent)", Toast.LENGTH_LONG).show()
+                // *** 1. Generar el HASH de la contrasenya amb BCrypt ***
+                val contrasenaHash = Usuario.Companion.generarHash(contrasenya)
+                if (contrasenaHash.isNullOrBlank()) {
+                    Toast.makeText(requireContext(), "Error intern al processar la contrasenya.", Toast.LENGTH_SHORT).show()
+                    Log.e("RegistroAPI", "Hash de contrasenya generat és nul o buit.")
+                    return@setOnClickListener // Sortir si falla el hashing
+                }
+                Log.d("RegistroAPI", "Hash de contrasenya generat (NO loguejar en producció!): $contrasenaHash")
 
 
-                // 3. Preparar les PARTS de la petició multipart (camps de text i fitxer)
+                // *** 2. Obtenir el fitxer de la foto per defecte des del drawable ***
+                val defaultDrawableId = R.drawable.add_image // *** Utilitza l'ID del teu drawable ***
+                // Utilitzem la funció auxiliar que hem creat
+                val photoFile: File? = getFileFromDrawable(requireContext(), defaultDrawableId, "default_profile_photo.png") // Nom del fitxer temporal
+
+                if (photoFile == null || !photoFile.exists()) {
+                    Toast.makeText(requireContext(), "Error intern: No es pot obtenir la imatge per defecte.", Toast.LENGTH_SHORT).show()
+                    Log.e("RegistroAPI", "No es va poder obtenir el fitxer de la foto per defecte.")
+                    return@setOnClickListener
+                }
+                Log.d("RegistroAPI", "Fitxer de foto per defecte a enviar: ${photoFile.name}, Path: ${photoFile.absolutePath}")
+
+
+                // 3. Preparar les PARTS de la petició multipart
 
                 val nombrePart = nombre.toRequestBody("text/plain".toMediaTypeOrNull())
                 val apellidosPart = apellidos.toRequestBody("text/plain".toMediaTypeOrNull())
                 val correoPart = correo.toRequestBody("text/plain".toMediaTypeOrNull())
-                val contrasenaHashPart = contrasenya.toRequestBody("text/plain".toMediaTypeOrNull()) // *** Enviem el HASH ***
+                val contrasenaHashPart = contrasenaHash.toRequestBody("text/plain".toMediaTypeOrNull()) // *** Enviem el HASH ***
                 val fechaNacimientoPart = fechaNacimiento.toRequestBody("text/plain".toMediaTypeOrNull())
                 val telefonoPart = telefono.toRequestBody("text/plain".toMediaTypeOrNull())
-                // *** Determina la ID del rol segons la lògica de l'app (per exemple, si l'usuari tria Cliente o Gestor) ***
+                // *** Determina la ID del rol segons la lògica de l'app ***
                 val idRolValue = 1 // *** Substitueix 1 per la lògica per obtenir el rol real (1 per Client, 2 per Gestor, etc.) ***
                 val idRolPart = idRolValue.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+
+                // *** Preparar la part del fitxer "photo" ***
+                // "photo" ha de coincidir EXACTAMENT amb el nom que espera l'API HttpContext.Current.Request.Files["photo"]
+                val photoRequestBody = photoFile.asRequestBody("image/png".toMediaTypeOrNull()) // Utilitza el tipus MIME correcte (image/png, image/jpeg, etc.)
+                val photoPart = MultipartBody.Part.createFormData("photo", photoFile.name, photoRequestBody) // "photo" és el nom esperat pel servidor
+
 
                 // 4. Fer la crida a l'API POST utilitzant RetrofitClient
                 RetrofitClient.apiService.postUsuario(
                     nombrePart,
                     apellidosPart,
                     correoPart,
-                    contrasenaHashPart,
+                    contrasenaHashPart, // Enviem el HASH
                     fechaNacimientoPart,
                     telefonoPart,
-                    idRolPart
+                    idRolPart,
+                    photoPart // *** Incloem la part de la foto ***
                                                      ).enqueue(object : Callback<UsuarioRegistrat> { // Esperem la teva classe de resposta
 
                     override fun onResponse(call: Call<UsuarioRegistrat>, response: Response<UsuarioRegistrat>) {
@@ -148,14 +171,21 @@ class RegistroFragment: Fragment(R.layout.fragment_registro) {
                                 Log.d("RegistroAPI", "Usuari registrat amb èxit. ID: ${nuevoUsuario.id}, Correu: ${nuevoUsuario.correo}")
                                 Toast.makeText(requireContext(), "Registre completat!", Toast.LENGTH_LONG).show()
 
+                                // *** Netejar el fitxer temporal després de l'èxit ***
+                                photoFile.delete()
+                                Log.d("RegistroAPI", "Fitxer temporal eliminat després d'èxit.")
+
+
                                 // *** Després del registre exitós, navega a la pantalla de Login o a la principal ***
-                                // Normalment, aniries a Login perquè l'usuari s'autentiqui un cop registrat.
-                                // startActivity(Intent(this@RegistroActivity, LoginActivity::class.java)) // Exemple: Substitueix LoginActivity per la teva classe
-                                // finish() // Acabar l'Activity de registre
+                                // startActivity(Intent(this@RegistroActivity, LoginActivity::class.java))
+                                // finish()
 
                             } else {
                                 Log.e("RegistroAPI", "Registre exitós (codi 2xx), però resposta del cos nul.")
                                 Toast.makeText(requireContext(), "Registre completat, però dades de resposta buides.", Toast.LENGTH_SHORT).show()
+                                // *** Netejar el fitxer temporal fins i tot si el cos és nul ***
+                                photoFile.delete()
+                                Log.d("RegistroAPI", "Fitxer temporal eliminat després d'èxit (cos nul).")
                             }
                         } else {
                             // La petició va fallar (codi 400, 409, 500, etc.)
@@ -163,6 +193,11 @@ class RegistroFragment: Fragment(R.layout.fragment_registro) {
                             val errorBody = response.errorBody()?.string()
                             Log.e("RegistroAPI", "Error al registrar usuari. Codi: $statusCode, Error: $errorBody")
 
+                            Toast.makeText(requireContext(), "Error en el registre: $errorBody", Toast.LENGTH_LONG).show()
+
+                            // *** Netejar el fitxer temporal en cas d'error de l'API ***
+                            photoFile.delete()
+                            Log.d("RegistroAPI", "Fitxer temporal eliminat després d'error API.")
                         }
                     }
 
@@ -170,6 +205,10 @@ class RegistroFragment: Fragment(R.layout.fragment_registro) {
                         // Fallada a nivell de xarxa o excepció inesperada
                         Log.e("RegistroAPI", "Fallo de red o excepció al registrar usuari", t)
                         Toast.makeText(requireContext(), "Error de connexió. Torna a intentar-ho.", Toast.LENGTH_SHORT).show()
+
+                        // *** Netejar el fitxer temporal en cas de fallada de xarxa ***
+                        photoFile.delete()
+                        Log.d("RegistroAPI", "Fitxer temporal eliminat després de fallada de xarxa.")
                     }
                 }) // Fi de enqueue
 
@@ -334,5 +373,33 @@ class RegistroFragment: Fragment(R.layout.fragment_registro) {
         // Opcional: Estableix la data mínima si cal
 
         datePickerDialog.show()
+    }
+
+    fun getFileFromDrawable(context: Context, drawableId: Int, fileName: String): File? {
+        try {
+            val resources = context.resources
+            // Utilitza openRawResource per a drawables a la carpeta raw, o openResource per a drawables generals.
+            // La majoria dels drawables .png estan a la carpeta drawable general.
+            val inputStream: InputStream = resources.openRawResource(drawableId) // Si estàs segur que és a res/raw
+            // O millor per a drawables generals:
+            // val drawable = resources.getDrawable(drawableId, null)
+            // Si necessites obtenir un bitmap primer:
+            // val bitmap = (drawable as? BitmapDrawable)?.bitmap ?: return null
+            // val inputStream = bitmapToInputStream(bitmap) // Necessites implementar bitmapToInputStream
+
+            // Alternativa senzilla: Copiar directament el stream del recurs
+            val file = File(context.cacheDir, fileName) // Crea un fitxer temporal a la cache de l'app
+
+            FileOutputStream(file).use { outputStream ->
+                inputStream.copyTo(outputStream) // Copia el contingut del drawable al fitxer
+            }
+            inputStream.close() // Tanca el stream d'entrada
+
+            return file // Retorna el fitxer temporal creat
+
+        } catch (e: Exception) {
+            Log.e("FileHelper", "Error creant fitxer des de drawable ${drawableId}: ${e.message}", e)
+            return null // Retorna null si hi ha un error
+        }
     }
 }
