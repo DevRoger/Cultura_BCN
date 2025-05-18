@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="400dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:id="@+id/area_chat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="5dp"
+        >
+        <FrameLayout
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_margin="15dp"
+            >
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="80dp"
+
+                android:scaleType="centerCrop"
+                android:layout_height="80dp"
+                app:shapeAppearanceOverlay="@style/CircularImage"
+                android:background="@color/rojo_claro">
+            </com.google.android.material.imageview.ShapeableImageView>
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/avatar_user"
+                android:layout_width="70dp"
+                android:layout_margin="5dp"
+                android:scaleType="centerCrop"
+                android:layout_height="70dp"
+                app:shapeAppearanceOverlay="@style/CircularImage"
+                android:background="@color/white">
+            </com.google.android.material.imageview.ShapeableImageView>
+        </FrameLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="30dp">
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="25dp"
+                android:textStyle="bold"
+                android:text="Nombre ususario"
+                android:layout_gravity="center"
+                android:textColor="@color/rojo_oscuro"
+                />
+            <TextView
+                android:id="@+id/last_message"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:layout_marginLeft="5dp"
+                android:text="Ultimo mensaje"
+                android:layout_gravity="center"
+                android:textColor="@color/rojo_oscuro"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/rojo_oscuro"/>
+</LinearLayout>

@@ -99,4 +99,5 @@
     <string name="contrase_a">Contraseña</string>
     <string name="hora_fin">Hora Fin</string>
     <string name="lugar_sin_puntos">Lugar</string>
+    <string name="buscar">Buscar</string>
 </resources>

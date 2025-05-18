@@ -92,4 +92,5 @@
     <string name="confirmar">Confirmar</string>
     <string name="cerrar_sesi_n">Tancar sessió</string>
     <string name="usuario_gestor">Usuari Gestor</string>
+    <string name="buscar">Buscar</string>
 </resources>

@@ -44,15 +44,17 @@
             android:textStyle="italic" />
 
         <!-- Mapa -->
+
+
+        <!-- Teléfono -->
+
         <org.osmdroid.views.MapView
             android:id="@+id/mapView"
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:clickable="true"
-            android:focusable="true"/>
+            android:focusable="true" />
 
-
-        <!-- Teléfono -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

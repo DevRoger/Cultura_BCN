@@ -92,4 +92,5 @@
     <string name="confirmar">Confirm</string>
     <string name="cerrar_sesi_n">Log out</string>
     <string name="usuario_gestor">User Manager</string>
+    <string name="buscar">Search</string>
 </resources>
