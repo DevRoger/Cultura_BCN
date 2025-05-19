@@ -100,4 +100,19 @@
     <string name="hora_fin">Hora Fin</string>
     <string name="lugar_sin_puntos">Lugar</string>
     <string name="buscar">Buscar</string>
+    <string name="el_nombre_no_puede_estar_vac_o">El nombre no puede estar vacío.</string>
+    <string name="los_apellidos_no_pueden_estar_vac_os">Los apellidos no pueden estar vacíos.</string>
+    <string name="el_correo_no_puede_estar_vac_o">El correo no puede estar vacío.</string>
+    <string name="introduce_un_formato_de_correo_v_lido">Introduce un formato de correo válido.</string>
+    <string name="la_fecha_de_nacimiento_no_puede_estar_vac_a">La fecha de nacimiento no puede estar vacía.</string>
+    <string name="el_telefono_no_puede_estar_vac_o">El telefono no puede estar vacío.</string>
+    <string name="error_datos_del_usuario_incompletos">Error: Datos del usuario incompletos.</string>
+    <string name="error_interno_no_se_puede_obtener_la_imagen_para_actualizarla">Error interno: No se puede obtener la imagen para actualizarla.</string>
+    <string name="perfil_actualizado">Perfil actualizado!</string>
+    <string name="error_de_conexi_n_actualizando_el_perfil">Error de conexión actualizando el perfil.</string>
+    <string name="correo_y_o_contrase_a_incorrectos">Correo y/o contraseña incorrectos.</string>
+    <string name="inicio_de_sesi_n_con_xito">Inicio de sesión con éxito</string>
+    <string name="error_de_conexi_n">Error de conexión</string>
+    <string name="correo_o_contrase_a_vac_os">Correo o contraseña vacíos</string>
+    <string name="el_telefono_solamente_puede_contener_n_meros">El telefono solamente puede contener números.</string>
 </resources>

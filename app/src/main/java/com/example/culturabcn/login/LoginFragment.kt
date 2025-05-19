@@ -49,7 +49,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                     // Aquesta funció s'executa després de rebre les dues respostes API si l'autenticació encara no ha passat
                     respuestasRecibidas++
                     if (respuestasRecibidas == 2 && !autenticado) {
-                        Toast.makeText(requireContext(), "Correo y/o contraseña incorrectos.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(),
+                                       getString(R.string.correo_y_o_contrase_a_incorrectos), Toast.LENGTH_SHORT).show()
                         edtCorreo.setBackgroundResource(R.drawable.rounded_edittext_error)
                         edtContrasenya.setBackgroundResource(R.drawable.rounded_edittext_error)
                     }
@@ -79,7 +80,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                             if (usuarioValido != null) {
                                 // *** AUTENTICACIÓ EXITOSA COM A CLIENT (Verificació BCrypt passada) ***
                                 autenticado = true // Marca com autenticat
-                                Toast.makeText(requireContext(), "Inicio de sesión con éxito", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(requireContext(),
+                                               getString(R.string.inicio_de_sesi_n_con_xito), Toast.LENGTH_SHORT).show()
                                 val intent = Intent(requireActivity(), MainActivity::class.java) // Crea Intent per a MainActivity
                                 UserLogged.userId = usuarioValido.id // Estableix UserLogged ID
                                 UserLogged.rolId = usuarioValido.idRol // Estableix UserLogged Rol ID
@@ -100,7 +102,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                     override fun onFailure(call: Call<List<Cliente>>, t: Throwable) {
                         // Fallada a nivell de xarxa
                         Log.e("IniciarSesion", "Error de xarxa obtenint Clients: ${t.message}", t)
-                        Toast.makeText(requireContext(), "Error de connexió", Toast.LENGTH_SHORT).show() // Missatge de xarxa genèric
+                        Toast.makeText(requireContext(),
+                                       getString(R.string.error_de_conexi_n), Toast.LENGTH_SHORT).show() // Missatge de xarxa genèric
                         manejarRespuestaFinal() // Espera la resposta de Gestor
                     }
                 })
@@ -126,7 +129,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                             if (usuarioValido != null) {
                                 // *** AUTENTICACIÓ EXITOSA COM A GESTOR (Verificació BCrypt passada) ***
                                 autenticado = true // Marca com autenticat
-                                Toast.makeText(requireContext(), "Inicio de sesión con éxito", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(requireContext(), R.string.inicio_de_sesi_n_con_xito, Toast.LENGTH_SHORT).show()
                                 val intent = Intent(requireActivity(), MainActivity::class.java) // Crea Intent per a MainActivity
                                 UserLogged.userId = usuarioValido.id // Estableix UserLogged ID
                                 UserLogged.rolId = usuarioValido.idRol // Estableix UserLogged Rol ID
@@ -146,7 +149,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                     override fun onFailure(call: Call<List<Gestor>>, t: Throwable) {
                         // Fallada a nivell de xarxa
                         Log.e("IniciarSesion", "Error de xarxa obtenint Gestors: ${t.message}", t)
-                        Toast.makeText(requireContext(), "Error de connexió", Toast.LENGTH_SHORT).show() // Missatge de xarxa genèric
+                        Toast.makeText(requireContext(), R.string.error_de_conexi_n, Toast.LENGTH_SHORT).show() // Missatge de xarxa genèric
                         manejarRespuestaFinal() // Com que aquesta és la segona resposta, si autenticado encara és false, es mostrarà l'error final
                     }
                 })
@@ -155,12 +158,11 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 // Camps de correu o contrasenya buits
                 edtCorreo.setBackgroundResource(R.drawable.rounded_edittext_error)
                 edtContrasenya.setBackgroundResource(R.drawable.rounded_edittext_error)
-                Toast.makeText(requireContext(), "Correo o contraseña vacíos", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(),
+                               getString(R.string.correo_o_contrase_a_vac_os), Toast.LENGTH_SHORT).show()
             }
         } // Fi de btnIniciar.setOnClickListener
 
-
-        // ... (Listeners per a txtRegistrar i btnOlvidada) ...
 
         val txtRegistrar = view.findViewById<TextView>(R.id.txtRegistrar)
         val btnOlvidada = view.findViewById<TextView>(R.id.btnOlvidada)

@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
@@ -28,6 +29,7 @@ import com.example.culturabcn.API.RetrofitClient
 import com.example.culturabcn.R
 import com.example.culturabcn.clases.Evento
 import com.example.culturabcn.clases.Sala
+import com.example.culturabcn.clases.SeatingCreationRequest
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -358,6 +360,46 @@ class CrearFragment : Fragment() {
         })
     }
 
+    @SuppressLint("ServiceCast")
+    private fun clearForm() {
+        // Netejar EditTexts
+        edtNombre.text.clear()
+        edtDescripcion.text.clear()
+        edtFecha.text.clear()
+        edtHora.text.clear()
+        edtHoraFin.text.clear()
+        edtLugar.text.clear()
+        edtPrecio.text.clear()
+        edtEdadMinima.text.clear()
+
+        // Netejar els camps de Filas/Columnas/Aforo (fins i tot si estan deshabilitats)
+        edtFilas.text.clear()
+        edtColumnas.text.clear()
+        edtAforo.text.clear()
+
+        // Restablir TextView (Sala)
+        edtSala.text = ""
+
+        // Restablir l'estat del CheckBox de numerades a false (o el teu estat per defecte)
+        checkBoxNumeradas.isChecked = false
+
+        // Restablir la imatge de l'esdeveniment a la seva imatge per defecte (p.ex., l'icona '+')
+        imgEventPhoto.setImageResource(R.drawable.add_image)
+
+
+        selectedPhotoUri = null
+        cameraPhotoUri = null
+        selectedSalaId = null
+
+        edtNombre.requestFocus()
+        try {
+            val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(view?.windowToken, 0)
+        } catch (e: Exception) {
+            Log.e("CrearFragment", "Error hiding keyboard", e)
+        }
+    }
+
     private fun showSalaPickerDialog() {
         // Comprova si la llista de sales s'ha carregat correctament
         if (salasList.isEmpty()) {
@@ -399,8 +441,10 @@ class CrearFragment : Fragment() {
         val precioText = edtPrecio.text.toString().trim() // Text de Precio
         val edadMinimaText = edtEdadMinima.text.toString().trim() // Text de Edad Mínima
         val salaNombre = edtSala.text.toString().trim() // Nom seleccionat de la Sala
-
         val idSala = selectedSalaId
+
+        val originalIsEnumerated = checkBoxNumeradas.isChecked
+
 
 
         // 2. Realitzar validació de tots els camps
@@ -467,7 +511,7 @@ class CrearFragment : Fragment() {
         // Assegura't que els noms de les parts ("nombre", "descripcion", etc.) coincideixin EXACTAMENT amb els que l'API espera.
         val nombrePart = nombre.toRequestBody("text/plain".toMediaTypeOrNull())
         val descripcionPart = descripcion.toRequestBody("text/plain".toMediaTypeOrNull())
-        val lugarPart = lugar.toRequestBody("text/plain".toMediaTypeOrNull())
+        val salaNombrePart = salaNombre.toRequestBody("text/plain".toMediaTypeOrNull())
         val fechaPart = fecha.toRequestBody("text/plain".toMediaTypeOrNull()) // Format "yyyy-MM-dd"
         val horaInicioPart = horaInicio.toRequestBody("text/plain".toMediaTypeOrNull()) // Format "HH:mm:ss"
         val horaFinPart = horaFin.toRequestBody("text/plain".toMediaTypeOrNull()) // Format "HH:mm:ss"
@@ -497,7 +541,7 @@ class CrearFragment : Fragment() {
         RetrofitClient.apiService.postEvento(
             nombrePart,
             descripcionPart,
-            lugarPart,
+            salaNombrePart,
             fechaPart,
             horaInicioPart,
             horaFinPart,
@@ -520,16 +564,63 @@ class CrearFragment : Fragment() {
                     val nuevoEvento: Evento? = response.body()
                     if (nuevoEvento != null) {
                         Log.d("CrearFragment", "Esdeveniment creat amb èxit. ID: ${nuevoEvento.id_evento}, Nom: ${nuevoEvento.nombre}")
-                        Toast.makeText(requireContext(), "Esdeveniment creat amb èxit!", Toast.LENGTH_LONG).show()
+                        //Toast.makeText(requireContext(), "Esdeveniment creat amb èxit!", Toast.LENGTH_LONG).show()
 
-                        // *** TODO: Acció després de la creació exitosa ***
-                        // Normalment:
-                        // - Netejar el formulari
-                        // clearForm() // Implementa una funció per netejar tots els camps
-                        // - O navegar a una altra pantalla (p.ex., la llista d'esdeveniments)
-                        // requireActivity().supportFragmentManager.popBackStack() // Exemple: tornar enrere en la pila de fragments
-                        // findNavController().navigate(...) // Si utilitzes Navigation Component
+                        // 2. Preparar les dades per a la crida de creació de seients
+                        // Utilitzem les dades de l'esdeveniment rebut i les dades del formulari (filas, columnas, aforo)
+                        val eventId = nuevoEvento.id_evento
 
+                        val seatingRequest = if (originalIsEnumerated) {
+                            // Si és numerat, necessitem files i columnes.
+                            // Ja hem validat que filas i columnasText són números vàlids abans.
+                            val numFilas = filasText.toIntOrNull()
+                            val numColumnas = columnasText.toIntOrNull()
+                            if (numFilas == null || numColumnas == null || numFilas <= 0 || numColumnas <= 0) {
+                                Log.e("CrearFragment", "Error intern: Dades de files/columnes no vàlides per a esdeveniment numerat després de crear l'esdeveniment.")
+                                Toast.makeText(requireContext(), "Error intern amb les dades dels seients.", Toast.LENGTH_LONG).show()
+                                // Decidir què fer aquí: l'esdeveniment s'ha creat sense seients.
+                                return // Surt de la callback
+                            }
+                            SeatingCreationRequest(eventId, originalIsEnumerated, rows = numFilas, columns = numColumnas)
+                        } else {
+                            // Si NO és numerat, necessitem l'aforo total.
+                            // Ja hem validat que aforoText és un número vàlid abans.
+                            val totalAforo = aforoText.toIntOrNull()
+                            if (totalAforo == null || totalAforo <= 0) {
+                                Log.e("CrearFragment", "Error intern: Dades d'aforo no vàlides per a esdeveniment no numerat després de crear l'esdeveniment.")
+                                Toast.makeText(requireContext(), "Error intern amb les dades de l'aforament.", Toast.LENGTH_LONG).show()
+                                return // Surt de la callback
+                            }
+                            SeatingCreationRequest(eventId, originalIsEnumerated, aforo = totalAforo)
+                        }
+
+                        RetrofitClient.apiService.createSeatsForEvent(seatingRequest).enqueue(object : Callback<Boolean> {
+                            override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
+                                if (response.isSuccessful && response.body() == true) {
+                                    Log.d("CrearFragment", "Asientos creats amb èxit per a l'esdeveniment ID: $eventId")
+                                    // *** Èxit COMPLET: Esdeveniment i seients creats ***
+                                    Toast.makeText(requireContext(), "Esdeveniment i seients creats amb èxit!", Toast.LENGTH_LONG).show()
+
+                                    clearForm()
+
+                                } else {
+                                    // La creació de seients va fallar
+                                    val statusCode = response.code()
+                                    val errorBody = response.errorBody()?.string()
+                                    Log.e("CrearFragment", "Error creant asientos per a l'esdeveniment ID: $eventId. Codi: $statusCode, Error: $errorBody")
+                                    // Notificar l'usuari que l'esdeveniment es va crear però els seients no
+                                    Toast.makeText(requireContext(), "Esdeveniment creat, però error al crear seients.", Toast.LENGTH_LONG).show()
+                                    // TODO: Implementar lògica per eliminar l'esdeveniment creat si els seients no es poden crear? (Requereix un nou endpoint API DELETE)
+                                }
+                            }
+
+                            override fun onFailure(call: Call<Boolean>, t: Throwable) {
+                                // Fallada de xarxa o excepció durant la creació de seients
+                                Log.e("CrearFragment", "Fallo de red al crear asientos per a l'esdeveniment ID: $eventId", t)
+                                Toast.makeText(requireContext(), "Esdeveniment creat, però fallo de xarxa al crear seients.", Toast.LENGTH_LONG).show()
+                                // TODO: Implementar lògica per eliminar l'esdeveniment creat si hi ha fallada de xarxa?
+                            }
+                        })
                     } else {
                         Log.e("CrearFragment", "Creació d'esdeveniment exitosa (codi 2xx), però cos de resposta nul.")
                         Toast.makeText(requireContext(), "Esdeveniment creat, però dades de resposta buides.", Toast.LENGTH_SHORT).show()
