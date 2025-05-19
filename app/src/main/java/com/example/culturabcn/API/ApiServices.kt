@@ -1,5 +1,6 @@
 package com.example.culturabcn.API
 
+import com.example.culturabcn.clases.Chat
 import com.example.culturabcn.clases.Cliente
 import com.example.culturabcn.clases.Evento
 import com.example.culturabcn.clases.Gestor
@@ -32,8 +33,14 @@ interface ApiService {
     @GET("api/usuarios/rol/2")
     fun getUsuariosRol2(): Call<List<Gestor>>
 
+    @GET("api/usuarios/rol/{id_user}")
+    fun getUsuariosRol(@Path("id_user") id_user: Int) : Int
+
     @GET("api/asientos/eventoasientoscounts/{id}")
     fun getAsientosCount(@Path("id") eventId: Int): Call<Int>
+
+    @GET("api/chats/{id}")
+    fun getChatsByUserId(@Path("id") id: Int): List<Chat>
 
     @GET("api/eventos/byuser/{userId}/reserved")
     fun getReservasPorUsuario(@Path("userId") userId: Int): Call<List<Evento>>

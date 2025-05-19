@@ -13,7 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-
         >
         <LinearLayout
             android:layout_marginTop="10dp"
@@ -31,6 +30,7 @@
                 android:paddingLeft="10dp">
             </EditText>
             <Button
+                android:id="@+id/button_search"
                 android:layout_width="80dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center_horizontal"
@@ -60,31 +60,6 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <LinearLayout
-            android:padding="10dp"
-            android:orientation="horizontal"
-            android:background="@color/rojo_claro"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/avat_user_chat"
-                android:layout_marginLeft="10dp"
-                android:layout_width="70dp"
-                android:scaleType="centerCrop"
-                app:shapeAppearanceOverlay="@style/CircularImage"
-                android:layout_height="70dp"
-                android:background="@color/white"/>
-            <TextView
-                android:id="@+id/name_user_chat"
-                android:text="Usuario"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:textSize="30dp"
-                android:textStyle="bold"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:textColor="@color/white"/>
-        </LinearLayout>
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
 
@@ -138,6 +113,10 @@
             android:layout_height="40dp"
             android:background="@drawable/rounded_edittext"/>
     </LinearLayout>
-
+    <TextView
+        android:id="@+id/user_chat_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"/>
 
 </FrameLayout>
