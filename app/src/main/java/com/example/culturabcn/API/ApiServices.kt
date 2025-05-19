@@ -5,6 +5,7 @@ import com.example.culturabcn.clases.Evento
 import com.example.culturabcn.clases.Gestor
 import com.example.culturabcn.clases.RutaImagenDto
 import com.example.culturabcn.clases.Sala
+import com.example.culturabcn.clases.SeatingCreationRequest
 import com.example.culturabcn.clases.Usuario
 import com.example.culturabcn.clases.UsuarioRegistrat
 import okhttp3.MultipartBody
@@ -93,6 +94,9 @@ interface ApiService {
         @Part photo: MultipartBody.Part
                   ): Call<Evento> // El tipus de retorn esperat és l'objecte Evento creat per l'API
 
-
+    @POST("api/asientos/createForEvent")
+    fun createSeatsForEvent(
+        @Body seatingRequest: SeatingCreationRequest
+                           ): Call<Boolean>
 
 }
