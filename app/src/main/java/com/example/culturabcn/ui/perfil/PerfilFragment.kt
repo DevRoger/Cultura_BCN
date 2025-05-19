@@ -598,8 +598,7 @@ class PerfilFragment : Fragment() {
                 Toast.makeText(
                     context, getString(R.string.el_nombre_no_puede_estar_vac_o), Toast.LENGTH_SHORT
                               ).show()
-                // Pots afegir un focus a l'EditText per ajudar l'usuari
-                // edtNombre.requestFocus()
+                edtNombre.requestFocus()
                 return@setOnClickListener
             }
 
@@ -610,27 +609,7 @@ class PerfilFragment : Fragment() {
                     getString(R.string.los_apellidos_no_pueden_estar_vac_os),
                     Toast.LENGTH_SHORT
                               ).show()
-                // edtApellido.requestFocus()
-                return@setOnClickListener
-            }
-
-            // Validació: El correu electrònic no pot estar buit
-            if (updatedCorreo.isBlank()) {
-                Toast.makeText(
-                    context, getString(R.string.el_correo_no_puede_estar_vac_o), Toast.LENGTH_SHORT
-                              ).show()
-                // edtCorreo.requestFocus()
-                return@setOnClickListener
-            }
-
-            // Validació: Format de correu electrònic vàlid
-            if (!android.util.Patterns.EMAIL_ADDRESS.matcher(updatedCorreo).matches()) {
-                Toast.makeText(
-                    context,
-                    getString(R.string.introduce_un_formato_de_correo_v_lido),
-                    Toast.LENGTH_SHORT
-                              ).show()
-                // edtCorreo.requestFocus()
+                edtApellido.requestFocus()
                 return@setOnClickListener
             }
 
@@ -641,7 +620,7 @@ class PerfilFragment : Fragment() {
                     getString(R.string.la_fecha_de_nacimiento_no_puede_estar_vac_a),
                     Toast.LENGTH_SHORT
                               ).show()
-                // edtFechaNacimiento.requestFocus()
+                edtFechaNacimiento.requestFocus()
                 return@setOnClickListener
             }
 
@@ -652,8 +631,18 @@ class PerfilFragment : Fragment() {
                     getString(R.string.el_telefono_no_puede_estar_vac_o),
                     Toast.LENGTH_SHORT
                               ).show()
-                // edtTelefono.requestFocus()
+                edtTelefono.requestFocus()
                 return@setOnClickListener
+            }
+
+            // Validació: El telèfon només pot contenir números
+            if (!updatedTelefono.all { it.isDigit() }) {
+                Toast.makeText(
+                    context, getString(R.string.el_telefono_solamente_puede_contener_n_meros),
+                    Toast.LENGTH_SHORT
+                              ).show()
+                edtTelefono.requestFocus()
+                return@setOnClickListener // Surt si falla la validació
             }
 
             // 2. Obtenir dades de referència

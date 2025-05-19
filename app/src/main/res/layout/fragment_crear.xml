@@ -147,6 +147,7 @@
             android:paddingStart="14dp"
             tools:ignore="RtlSymmetry" />
 
+        <!-- Lugar -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

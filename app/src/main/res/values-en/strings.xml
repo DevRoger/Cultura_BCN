@@ -92,5 +92,27 @@
     <string name="confirmar">Confirm</string>
     <string name="cerrar_sesi_n">Log out</string>
     <string name="usuario_gestor">User Manager</string>
+    <string name="apellidos_sin_puntos">Surname</string>
+    <string name="correo_sin_puntos">Email</string>
+    <string name="fecha_de_nacimiento_sin_puntos">Date of Birth</string>
+    <string name="tel_fono_sin_puntos">Phone Number</string>
+    <string name="contrase_a">Password</string>
+    <string name="hora_fin">End Time</string>
+    <string name="lugar_sin_puntos">Location</string>
     <string name="buscar">Search</string>
+    <string name="el_nombre_no_puede_estar_vac_o">The name cannot be empty.</string>
+    <string name="los_apellidos_no_pueden_estar_vac_os">The surname cannot be empty.</string>
+    <string name="el_correo_no_puede_estar_vac_o">The email cannot be empty.</string>
+    <string name="introduce_un_formato_de_correo_v_lido">Enter a valid email format.</string>
+    <string name="la_fecha_de_nacimiento_no_puede_estar_vac_a">The date of birth cannot be empty.</string>
+    <string name="el_telefono_no_puede_estar_vac_o">The phone number cannot be empty.</string>
+    <string name="error_datos_del_usuario_incompletos">Error: Incomplete user data.</string>
+    <string name="error_interno_no_se_puede_obtener_la_imagen_para_actualizarla">Internal Error: Cannot get the image for update.</string>
+    <string name="perfil_actualizado">Profile updated!</string>
+    <string name="error_de_conexi_n_actualizando_el_perfil">Connection error updating profile.</string>
+    <string name="correo_y_o_contrase_a_incorrectos">Incorrect email and/or password.</string>
+    <string name="inicio_de_sesi_n_con_xito">Login successful</string>
+    <string name="error_de_conexi_n">Connection error</string>
+    <string name="correo_o_contrase_a_vac_os">Email or password empty</string>
+    <string name="el_telefono_solamente_puede_contener_n_meros">The phone number can only contain numbers.</string>
 </resources>
