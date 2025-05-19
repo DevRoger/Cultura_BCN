@@ -25,10 +25,6 @@ class MensajesFragment : Fragment() {
         _binding = FragmentMensajesBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textSlideshow
-        mensajesViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
         return root
     }
 

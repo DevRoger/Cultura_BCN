@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/background_login">
 
     <ImageView
@@ -56,11 +57,20 @@
             android:layout_width="match_parent"
             android:layout_height="120dp" />
 
+
         <EditText
+            android:id="@+id/edtRecuperar"
             android:layout_width="300dp"
             android:layout_height="70dp"
             android:layout_gravity="center"
-            android:background="@color/rojo_oscuro" />
+            android:layout_marginBottom="25dp"
+            android:background="@drawable/rounded_edittext"
+            android:drawableStart="@drawable/ic_correo"
+            android:drawableTint="@color/rojo_claro"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:paddingStart="14dp"
+            tools:ignore="RtlSymmetry" />
 
 
         <com.google.android.material.button.MaterialButton

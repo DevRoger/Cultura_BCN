@@ -26,12 +26,12 @@
     <string name="olvidada">FORGOTTEN</string>
     <string name="por_favor_inicia_sesi_n_para_continuar">Please log in to continue.</string>
     <string name="iniciar">Login</string>
-    <string name="no_tienes_cuenta">Don\'t have an account?</string>
+    <string name="no_tienes_cuenta">Don\'t have an account? </string>
     <string name="registrate">REGISTER</string>
     <string name="recuperaci_n">Recovery</string>
     <string name="te_has_olvidado_de_tu_contrase_a">Have you forgotten your password?</string>
     <string name="recuperar">Recover</string>
-    <string name="necesitas_ayuda">Need help?</string>
+    <string name="necesitas_ayuda">Need help? </string>
     <string name="www_barcelona_cat">www.barcelona.cat</string>
     <string name="por_favor_registrate_para_continuar">Please register to continue.</string>
     <string name="ya_tienes_una_cuenta">Already have an account?</string>
@@ -39,7 +39,7 @@
     <string name="lugar">"Location: "</string>
     <string name="precio">"Price: "</string>
     <string name="fecha">"Date: "</string>
-    <string name="hora">Time:</string>
+    <string name="hora">Time: </string>
     <string name="cancelar" tools:ignore="ButtonCase">CANCEL</string>
     <string name="aforo">"Capacity: "</string>
     <string name="edad_m_nima">"Minimum age: "</string>
