@@ -35,13 +35,13 @@ interface ApiService {
     fun getUsuariosRol2(): Call<List<Gestor>>
 
     @GET("api/usuarios/rol/{id_user}")
-    fun getUsuariosRol(@Path("id_user") id_user: Int) : Int
+    suspend  fun getUsuariosRol(@Path("id_user") id_user: Int) : Response<Int>
 
     @GET("api/asientos/eventoasientoscounts/{id}")
     fun getAsientosCount(@Path("id") eventId: Int): Call<Int>
 
     @GET("api/chats/{id}")
-    fun getChatsByUserId(@Path("id") id: Int): List<Chat>
+    suspend fun getChatsByUserId(@Path("id") id: Int): List<Chat>
 
     @GET("api/eventos/byuser/{userId}/reserved")
     fun getReservasPorUsuario(@Path("userId") userId: Int): Call<List<Evento>>

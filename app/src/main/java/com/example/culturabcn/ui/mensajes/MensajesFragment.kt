@@ -13,6 +13,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.culturabcn.API.RetrofitClient
@@ -21,6 +22,7 @@ import com.example.culturabcn.clases.Cliente
 import com.example.culturabcn.clases.Gestor
 import com.example.culturabcn.clases.UserLogged
 import com.example.culturabcn.databinding.FragmentMensajesBinding
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -107,12 +109,12 @@ class MensajesFragment : Fragment() {
         panelSendMessages: LinearLayout,
         DataChat: TextView,
                   ) {
-        var list = RetrofitClient.apiService.getChatsByUserId(usuario!!)
-        listChats.layoutManager = LinearLayoutManager(requireContext())
-        val adapterData = AdapterChats(list,usuario!!,requireContext(),screenListChats,screenMessages,recyclerMessages,panelSendMessages,DataChat)
-        listChats.adapter = adapterData
-
-
+        lifecycleScope.launch{
+            var list = RetrofitClient.apiService.getChatsByUserId(usuario!!)
+            listChats.layoutManager = LinearLayoutManager(requireContext())
+            val adapterData = AdapterChats(list,usuario!!,requireContext(),screenListChats,screenMessages,recyclerMessages,panelSendMessages,DataChat,lifecycleScope)
+            listChats.adapter = adapterData
+        }
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?

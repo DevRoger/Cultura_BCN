@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.recyclerview.widget.RecyclerView
 import com.example.culturabcn.API.RetrofitClient
 import com.example.culturabcn.R
@@ -18,6 +19,7 @@ import com.example.culturabcn.clases.Gestor
 import com.example.culturabcn.clases.RutaImagenDto
 import com.example.culturabcn.clases.UserLogged
 import com.google.android.material.imageview.ShapeableImageView
+import kotlinx.coroutines.launch
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -33,7 +35,8 @@ class AdapterChats(
     private val screenMessages: LinearLayout,
     private val recyclerMessages: RecyclerView,
     private val panelSendMessages: LinearLayout,
-    private val DataChat: TextView
+    private val DataChat: TextView,
+    private val lifecycleScope: LifecycleCoroutineScope
                   ): RecyclerView.Adapter<AdapterChats.ChatViewHolder>()  {
 
     class ChatViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -56,61 +59,79 @@ class AdapterChats(
         val chat = chatList[position]
         var id_rol : Int
         var id_user_final : Int
-        if (chat.idUsuario_1 == id_user_original){
-            id_user_final = chat.idUsuario_2
+        if (chat.id_usuario_1 == id_user_original){
+            id_user_final = chat.id_usuario_2
         }else{
-            id_user_final = chat.idUsuario_1
-        }
-
-        id_rol = RetrofitClient.apiService.getUsuariosRol(id_user_final)
-
-        if (id_rol == 1){
-            RetrofitClient.apiService.getUsuariosRol1().enqueue(object :
-                                                                    Callback<List<Cliente>> {
-                override fun onResponse(call: Call<List<Cliente>>, response: Response<List<Cliente>>) { // Tipus de resposta corregit a List<Cliente>
-                    if (response.isSuccessful) {
-                        val clientes = response.body()
-                        // *** MODIFICACIÓ AQUÍ: Trobar usuari i verificar contrasenya utilitzant BCrypt.checkpw ***
-                        val usuarioValido = clientes?.find {
-                            it.id == UserLogged.userId }
-                        holder.userName.text = usuarioValido!!.nombre
-                        setFileImage(usuarioValido.foto!!,holder.avatar)
-                        holder.last_message.text = usuarioValido!!.correo
-                    }
-                }
-                override fun onFailure(call: Call<List<Cliente>>, t: Throwable) {
-                    // Fallada a nivell de xarxa
-                    Log.e("IniciarSesion", "Error de xarxa obtenint Clients: ${t.message}", t)
-                    Toast.makeText(context, "Error de connexió", Toast.LENGTH_SHORT).show() // Missatge de xarxa genèric
-                }
-            })
-        }else{
-            RetrofitClient.apiService.getUsuariosRol2().enqueue(object : Callback<List<Gestor>> {
-                override fun onResponse(call: Call<List<Gestor>>, response: Response<List<Gestor>>) {
-                    if (response.isSuccessful) {
-                        val gestores = response.body()
-                        // *** MODIFICACIÓ AQUÍ: Trobar usuari i verificar contrasenya utilitzant BCrypt.checkpw ***
-                        val usuarioValido = gestores?.find {
-                            it.id == UserLogged.userId  // Compara el correu }
-                        }
-                        holder.userName.text = usuarioValido!!.nombre
-                        setFileImage(usuarioValido.foto!!,holder.avatar)
-                        holder.last_message.text = usuarioValido!!.correo
-                    }
-                }
-                override fun onFailure(call: Call<List<Gestor>>, t: Throwable) {
-                    // Fallada a nivell de xarxa
-                    Log.e("IniciarSesion", "Error de xarxa obtenint Gestors: ${t.message}", t)
-                    Toast.makeText(context, "Error de connexió", Toast.LENGTH_SHORT).show() // Missatge de xarxa genèric
-                    // Com que aquesta és la segona resposta, si autenticado encara és false, es mostrarà l'error final
-                }
-            })
+            id_user_final = chat.id_usuario_1
         }
         holder.element_chat.setOnClickListener(){
             screenListChats.visibility = View.GONE
             screenMessages.visibility = View.VISIBLE
             panelSendMessages.visibility = View.VISIBLE
         }
+        lifecycleScope.launch {
+            var id_rol = -1
+            try {
+                val response = RetrofitClient.apiService.getUsuariosRol(id_user_final)
+                if (response.isSuccessful) {
+                    id_rol = response.body()!!
+                    if (id_rol != null) {
+                        // Usa el id_rol aquí
+                    } else {
+                        Log.e("Error", "Respuesta vacía")
+                    }
+                } else {
+                    Log.e("Error", "Error de red: ${response.code()}")
+                }
+            } catch (e: Exception) {
+                Log.e("Error", "Excepción: ${e.message}")
+            }
+            if (id_rol == 1){
+                RetrofitClient.apiService.getUsuariosRol1().enqueue(object :
+                                                                        Callback<List<Cliente>> {
+                    override fun onResponse(call: Call<List<Cliente>>, response: Response<List<Cliente>>) { // Tipus de resposta corregit a List<Cliente>
+                        if (response.isSuccessful) {
+                            val clientes = response.body()
+                            // *** MODIFICACIÓ AQUÍ: Trobar usuari i verificar contrasenya utilitzant BCrypt.checkpw ***
+                            val usuarioValido = clientes?.find {
+                                it.id == id_user_final }
+                            holder.userName.text = usuarioValido!!.nombre
+                            setFileImage(usuarioValido.foto!!,holder.avatar)
+                            holder.last_message.text = usuarioValido!!.correo
+                        }
+                    }
+                    override fun onFailure(call: Call<List<Cliente>>, t: Throwable) {
+                        // Fallada a nivell de xarxa
+                        Log.e("IniciarSesion", "Error de xarxa obtenint Clients: ${t.message}", t)
+                        Toast.makeText(context, "Error de connexió", Toast.LENGTH_SHORT).show() // Missatge de xarxa genèric
+                    }
+                })
+            }else{
+                RetrofitClient.apiService.getUsuariosRol2().enqueue(object : Callback<List<Gestor>> {
+                    override fun onResponse(call: Call<List<Gestor>>, response: Response<List<Gestor>>) {
+                        if (response.isSuccessful) {
+                            val gestores = response.body()
+                            // *** MODIFICACIÓ AQUÍ: Trobar usuari i verificar contrasenya utilitzant BCrypt.checkpw ***
+                            val usuarioValido = gestores?.find {
+                                it.id == id_user_final  // Compara el correu }
+                            }
+                            holder.userName.text = usuarioValido!!.nombre
+                            setFileImage(usuarioValido.foto!!,holder.avatar)
+                            holder.last_message.text = usuarioValido!!.correo
+                        }
+                    }
+                    override fun onFailure(call: Call<List<Gestor>>, t: Throwable) {
+                        // Fallada a nivell de xarxa
+                        Log.e("IniciarSesion", "Error de xarxa obtenint Gestors: ${t.message}", t)
+                        Toast.makeText(context, "Error de connexió", Toast.LENGTH_SHORT).show() // Missatge de xarxa genèric
+                        // Com que aquesta és la segona resposta, si autenticado encara és false, es mostrarà l'error final
+                    }
+                })
+            }
+        }
+
+
+
 
 
     }
