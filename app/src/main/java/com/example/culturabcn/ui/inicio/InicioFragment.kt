@@ -17,6 +17,7 @@ import com.example.culturabcn.clases.Chat
 import com.example.culturabcn.clases.Cliente
 import com.example.culturabcn.clases.Evento
 import com.example.culturabcn.clases.UserLogged
+import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -47,7 +48,24 @@ class InicioFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(activity)
 
         // Inicializa el adapter con una lista vacía
-        eventosAdapter = EventosAdapter(emptyList())
+        eventosAdapter = EventosAdapter(emptyList()) { clickedEvento ->
+            // Aquesta lògica s'executarà quan es cliqui el botó "Reservar" en un element
+            Log.d("InicioFragment", "Botón Reservar clicado para: ${clickedEvento.nombre}")
+
+            // 1. Convertir el objeto Evento a JSON string
+            val eventoJson = Gson().toJson(clickedEvento)
+
+            // 2. Crear un Bundle para pasar los argumentos
+            val bundle = Bundle().apply {
+                putString("evento", eventoJson)
+            }
+
+            // 3. Navegar al EventoDetallesFragment con los argumentos
+            findNavController().navigate(
+                R.id.eventoDetallesFragment,
+                bundle
+                                        )
+        }
         recyclerView.adapter = eventosAdapter
         // --------------------------------------------------
 

@@ -271,7 +271,18 @@ class PerfilFragment : Fragment() {
         // Configurar el RecyclerView per a reserves (es manté igual)
         val recyclerViewReservas: RecyclerView = view.findViewById(R.id.recyclerViewReservas)
         recyclerViewReservas.layoutManager = LinearLayoutManager(activity)
-        reservasAdapter = EventosAdapter(emptyList())
+        reservasAdapter = EventosAdapter(emptyList()) { clickedEvento ->
+            // Aquesta és la lògica que s'executarà quan es cliqui el botó "Reservar"
+            // en un esdeveniment DINS del RecyclerView de RESERVES.
+            // Pots posar la lògica que vulguis aquí.
+            Toast.makeText(
+                requireContext(),
+                "Ya tienes una reserva para ${clickedEvento.nombre}. ¡Disfruta del evento!",
+                Toast.LENGTH_SHORT
+                          ).show()
+            // Si volguessis navegar a una pantalla de gestió de reserva o similar, ho faries aquí.
+            // findNavController().navigate(R.id.action_perfilFragment_to_gestionReservaFragment, bundle)
+        }
         recyclerViewReservas.adapter = reservasAdapter
 
         val userId = UserLogged.userId

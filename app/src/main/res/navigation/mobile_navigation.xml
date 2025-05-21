@@ -47,4 +47,11 @@
         android:label="Crear Evento"
         tools:layout="@layout/fragment_crear" />
 
+    <fragment
+        android:id="@+id/eventoDetallesFragment"
+        android:name="com.example.culturabcn.ui.inicio.EventoDetallesFragment"
+        android:label="Detalles del Evento"
+        tools:layout="@layout/fragment_evento_detalles"/>
+
+
 </navigation>
