@@ -15,7 +15,7 @@
         <ImageView
             android:id="@+id/imgEventoDetalle"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="250dp"
             android:layout_marginBottom="16dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_menu_perfil" />
@@ -32,6 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
+                android:textColor="@color/rojo_claro"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 tools:text="Nom de l'Esdeveniment" />
@@ -53,7 +54,7 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_menu_perfil" />
+                    android:src="@drawable/ic_date" />
 
                 <TextView
                     android:id="@+id/tvFechaDetalle"
@@ -73,7 +74,7 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_menu_perfil" />
+                    android:src="@drawable/ic_time" />
 
                 <TextView
                     android:id="@+id/tvHoraDetalle"
@@ -93,7 +94,7 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_menu_perfil" />
+                    android:src="@drawable/ic_site" />
 
                 <TextView
                     android:id="@+id/tvLugarDetalle"
@@ -113,7 +114,7 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_menu_perfil" />
+                    android:src="@drawable/ic_price" />
 
                 <TextView
                     android:id="@+id/tvPrecioDetalle"
@@ -133,7 +134,7 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_menu_perfil" />
+                    android:src="@drawable/ic_age" />
 
                 <TextView
                     android:id="@+id/tvEdadMinimaDetalle"
@@ -153,7 +154,7 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_menu_perfil" />
+                    android:src="@drawable/ic_aforo" />
 
                 <TextView
                     android:id="@+id/tvAforoDetalle"
@@ -187,13 +188,17 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnRestarEntrada"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:backgroundTint="@color/purple_500"
+                        android:layout_gravity="center"
+                        android:background="@drawable/degradado_button"
                         android:text="-"
-                        android:textSize="20sp" />
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:backgroundTint="@null" />
 
                     <TextView
                         android:id="@+id/tvCantidadEntradas"
@@ -205,13 +210,17 @@
                         android:textSize="22sp"
                         android:textStyle="bold" />
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnSumarEntrada"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:backgroundTint="@color/purple_500"
+                        android:layout_gravity="center"
+                        android:background="@drawable/degradado_button"
                         android:text="+"
-                        android:textSize="20sp" />
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:backgroundTint="@null" />
                 </LinearLayout>
 
                 <TextView
@@ -224,6 +233,7 @@
                     android:textStyle="bold" />
 
             </LinearLayout>
+
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnReservarDetalle"
