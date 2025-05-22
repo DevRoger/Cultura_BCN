@@ -1,5 +1,7 @@
 package com.example.culturabcn.ui.mensajes
 
+
+import android.icu.text.SimpleDateFormat
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -20,17 +23,25 @@ import com.example.culturabcn.API.RetrofitClient
 import com.example.culturabcn.R
 import com.example.culturabcn.clases.Cliente
 import com.example.culturabcn.clases.Gestor
+import com.example.culturabcn.clases.Mensaje
 import com.example.culturabcn.clases.UserLogged
 import com.example.culturabcn.databinding.FragmentMensajesBinding
+import com.example.culturabcn.sockets.ChatClient
 import kotlinx.coroutines.launch
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.Date
+import java.util.Locale
 
 class MensajesFragment : Fragment() {
 
     private var _binding: FragmentMensajesBinding? = null
-
+    private var chatClient : ChatClient? = null
+    private var listOfMessage: MutableList<Mensaje>? = mutableListOf()
+    private var chatClientConnected = false
+    private var id_chat = 0
     // This property is only valid between onCreateView and
     // onDestroyView.
 
@@ -50,6 +61,9 @@ class MensajesFragment : Fragment() {
         var recyclerMessages = view.findViewById<RecyclerView>(R.id.recyclerViewMessages)
         var panelSendMessages = view.findViewById<LinearLayout>(R.id.panelMessage)
         var DataChat = view.findViewById<TextView>(R.id.user_chat_data)
+        var textMessage = view.findViewById<EditText>(R.id.text)
+        var buttonSendMessage = view.findViewById<ImageView>(R.id.button_send_message)
+
 
         val rol = UserLogged.rolId
 
@@ -99,6 +113,56 @@ class MensajesFragment : Fragment() {
                 }
             })
         }
+        screenMessages.addOnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
+            if (v.visibility == View.VISIBLE && !chatClientConnected) {
+                val data_other_user = DataChat.text.toString()
+                id_chat = data_other_user.toInt()
+                chatClient = ChatClient("10.0.3.141", 5000, senderId = UserLogged.userId, chatId = id_chat)
+                chatClient!!.connect()
+                chatClientConnected= true
+                chatClient!!.onMessagesReceived = { listaMensajes ->
+                    lifecycleScope.launch {
+                        if(listaMensajes.size==1){
+                            listOfMessage!!.add(listaMensajes[0])
+                            recyclerMessages.layoutManager = LinearLayoutManager(requireContext())
+                            var adapter = AdapterMensajes(listOfMessage!!,requireContext(),UserLogged.userId,lifecycleScope)
+                            recyclerMessages.adapter = adapter
+                            recyclerMessages.scrollToPosition(listaMensajes.size - 1)
+                        }else{
+                            listOfMessage = listaMensajes.toMutableList()
+                            recyclerMessages.layoutManager = LinearLayoutManager(requireContext())
+                            var adapter = AdapterMensajes(listOfMessage!!,requireContext(),UserLogged.userId,lifecycleScope)
+                            recyclerMessages.adapter = adapter
+                            recyclerMessages.scrollToPosition(listaMensajes.size - 1)
+                        }
+                    }
+                }
+            }
+        }
+        buttonSendMessage.setOnClickListener(){
+            val mensajeTexto = textMessage.text.toString()
+
+            if (mensajeTexto.isNotEmpty()) {
+                val json = JSONObject()
+                json.put("sender_id", UserLogged.userId)
+                json.put("chat_id", id_chat)
+                json.put("texto", mensajeTexto)
+                val now = Date()
+                val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
+                val formatted = dateFormat.format(now)
+                val parsedDate = dateFormat.parse(formatted)
+                chatClient!!.sendMessage(json.toString())
+                textMessage.setText("") // Limpiar campo
+                listOfMessage?.add(Mensaje(id_chat,mensajeTexto,parsedDate,UserLogged.userId))
+                recyclerMessages.layoutManager = LinearLayoutManager(requireContext())
+                var adapter = AdapterMensajes(listOfMessage!!,requireContext(),UserLogged.userId,lifecycleScope)
+                recyclerMessages.adapter = adapter
+                recyclerMessages.scrollToPosition(listOfMessage!!.size - 1)
+            }
+        }
+
+
+
     }
     fun updateData(
         usuario: Int?,
@@ -114,7 +178,15 @@ class MensajesFragment : Fragment() {
             listChats.layoutManager = LinearLayoutManager(requireContext())
             val adapterData = AdapterChats(list,usuario!!,requireContext(),screenListChats,screenMessages,recyclerMessages,panelSendMessages,DataChat,lifecycleScope)
             listChats.adapter = adapterData
+
         }
+    }
+    private fun anadirMensaje(mensaje: Mensaje, recyclerMessages: RecyclerView) {
+        listOfMessage?.add(mensaje)
+        recyclerMessages.layoutManager = LinearLayoutManager(requireContext())
+        var adapter = AdapterMensajes(listOfMessage!!,requireContext(),UserLogged.userId,lifecycleScope)
+        recyclerMessages.adapter = adapter
+        recyclerMessages.scrollToPosition(listOfMessage!!.size - 1)
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?

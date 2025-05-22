@@ -62,11 +62,7 @@
                 android:text="fecha de envio y hora"
                 android:textColor="@color/rojo_oscuro"
                 />
-            <ImageView
-                android:id="@+id/icono_visto"
-                android:background="@color/rojo_oscuro"
-                android:layout_width="20dp"
-                android:layout_height="20dp"/>
+
         </LinearLayout>
     </LinearLayout>
     <LinearLayout

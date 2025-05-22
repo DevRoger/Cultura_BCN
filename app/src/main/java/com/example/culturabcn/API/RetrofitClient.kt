@@ -6,7 +6,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
-    private const val BASE_URL = "http://10.0.0.121/CulturaBCN/"
+    private const val BASE_URL = "http://10.0.3.141/CulturaBCN/"
 
     private val gson = GsonBuilder()
         .setDateFormat("yyyy-MM-dd")
